@@ -12,7 +12,7 @@ class DataBaseService
     const PORT = '3306';
     const DATABASE_NAME = 'carpooling';
     const MYSQL_USER = 'root';
-    const MYSQL_PASSWORD = 'password';
+    const MYSQL_PASSWORD = '';
 
     private $connection;
 
@@ -79,7 +79,7 @@ class DataBaseService
             'firstname' => $firstname,
             'lastname' => $lastname,
             'email' => $email,
-            'birthday' => $birthday->format(DateTime::RFC3339),
+            'birthday' => $birthday->format('Y-m-d H:i:s'),
         ];
         $sql = 'UPDATE users SET firstname = :firstname, lastname = :lastname, email = :email, birthday = :birthday WHERE id = :id;';
         $query = $this->connection->prepare($sql);
@@ -94,7 +94,6 @@ class DataBaseService
     public function deleteUser(string $id): bool
     {
         $isOk = false;
-
         $data = [
             'id' => $id,
         ];
@@ -104,4 +103,66 @@ class DataBaseService
 
         return $isOk;
     }
+    public function createCar(string $marque, string $couleur, DateTime $circulation, int $puissanceMoteur, string $modele): bool
+    {
+        $result = false;
+
+        $data = [
+            'marque' => $marque,
+            'couleur' => $couleur,
+            'mise_circulation' => $circulation->format('Y-m-d H:i:s'),
+            'puissance_moteur' => $puissanceMoteur,
+            'modele' => $modele
+        ];
+
+        $sql = 'INSERT INTO cars (marque, couleur, mise_circulation, puissance_moteur, modele) VALUES (:marque, :couleur, :mise_circulation, :puissance_moteur, :modele)';
+        $query = $this->connection->prepare($sql);
+        $result = $query->execute($data);
+
+        return $result;
+    }
+    public function getCars(): array
+    {
+        $_cars = [];
+
+        $sql = 'SELECT * FROM cars';
+        $query = $this->connection->query($sql);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $_cars = $results;
+        }
+
+        return $_cars;
+    }
+    public function updateCar(int $id, string $marque, string $couleur, DateTime $circulation, int $puissanceMoteur, string $modele): bool
+    {
+        $result = false;
+
+        $data = [
+            'id' => $id,
+            'marque' => $marque,
+            'couleur' => $couleur,
+            'puissance_moteur' => $puissanceMoteur,
+            'mise_circulation' => $circulation->format(DateTime::RFC3339),
+            'modele' => $modele
+        ];
+        $sql = 'UPDATE cars SET marque = :marque, couleur = :couleur, puissance_moteur = :puissance_moteur, mise_circulation = :mise_circulation, :modele = modele WHERE id = :id;';
+        $query = $this->connection->prepare($sql);
+        $result = $query->execute($data);
+
+        return $result;
+    }
+    public function deleteCar(int $id): bool
+    {
+        $result = false;
+        $data = [
+            'id' => $id,
+        ];
+        $sql = 'DELETE FROM cars WHERE id = :id;';
+        $query = $this->connection->prepare($sql);
+        $result = $query->execute($data);
+
+        return $result;
+    }
+
 }
