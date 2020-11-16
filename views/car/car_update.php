@@ -1,15 +1,5 @@
-<?php
-
-use App\Controllers\CarsController;
-
-require __DIR__ . '/vendor/autoload.php';
-
-$controller = new CarsController();
-echo $controller->updateCar();
-?>
-
 <p>Mise à jour d'une voiture</p>
-<form method="post" action="cars_update.php" name ="userUpdateForm">
+<form method="post" action="cars.php?action=update" name ="userUpdateForm">
     <label for="id">Id :</label>
     <input type="text" name="id">
     <br />

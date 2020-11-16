@@ -1,15 +1,5 @@
-<?php
-
-use App\Controllers\CarsController;
-
-require __DIR__ . '/vendor/autoload.php';
-
-$controller = new CarsController();
-echo $controller->createCar();
-?>
-
 <p>Création d'une voiture</p>
-<form method="post" action="cars_create.php" name="carCreateForm">
+<form method="post" action="cars.php?action=create" name="carCreateForm">
     <label for="marque">Marque :<br><input name="marque" id="marque" type="text"></label><br>
     <label for="couleur">Couleur :<br><input name="couleur" id="couleur" type="text"></label><br>
     <label for="modele">Modèle :<br><input name="modele" id="modele" type="text"></label><br>
