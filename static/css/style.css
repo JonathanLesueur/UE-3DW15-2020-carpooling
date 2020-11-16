@@ -1,0 +1,94 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    font-family: 'Verdala', sans-serif;
+    background-color: #FFFFFF;
+}
+
+ul, li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#main-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 50px;
+    background-color: #ededed;
+    line-height: 49px;
+}
+
+#main-nav > ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+}
+
+#main-nav > ul > li {
+    display: block;
+    height: 50px;
+    cursor: pointer;
+    text-align: center;
+    margin: 0 20px;
+}
+
+#main-nav > ul > li > span {
+    position: relative;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #000000;
+    font-size: 18px;
+}
+
+#main-nav > ul > li > span::after {
+    content: "\25BE";
+    display: block;
+    position: absolute;
+    font-size: 20px;
+    right: -20px;
+    bottom: -15px;
+}
+
+#main-nav > ul > li > ul {
+    display: none;
+    position: absolute;
+    top: 50px;
+    width: 220px;
+    list-style: none;
+    flex-direction: column;
+}
+
+#main-nav > ul > li:hover > ul {
+    display: block;
+}
+
+#main-nav > ul > li > ul > li {
+    text-align: left;
+    height: 30px;
+    line-height: 29px;
+    background-color: #ededed;
+    padding: 4px 10px;
+}
+
+#main-nav > ul > li > ul > li:hover {
+    background-color: #dddcdc;
+}
+
+#main-nav > ul > li > ul > li > a {
+    text-decoration: none;
+}
+
+#main-nav > ul > li > ul > li > a > span {
+    font-size: 16px;
+    font-weight: 400;
+    color: #000000;
+}
+
+main {
+    display: block;
+    width: 80%;
+    margin: 20px auto;
+}

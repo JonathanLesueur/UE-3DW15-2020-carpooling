@@ -1,15 +1,5 @@
-<?php
-
-use App\Controllers\UsersController;
-
-require __DIR__ . '/vendor/autoload.php';
-
-$controller = new UsersController();
-echo $controller->createUser();
-?>
-
 <p>Création d'un utilisateur</p>
-<form method="post" action="users_create.php" name ="userCreateForm">
+<form method="post" action="users.php?action=create" name ="userCreateForm">
     <label for="firstname">Prénom :</label>
     <input type="text" name="firstname">
     <br />

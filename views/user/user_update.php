@@ -1,15 +1,5 @@
-<?php
-
-use App\Controllers\UsersController;
-
-require __DIR__ . '/vendor/autoload.php';
-
-$controller = new UsersController();
-echo $controller->updateUser();
-?>
-
 <p>Mise à jour d'un utilisateur</p>
-<form method="post" action="users_update.php" name ="userUpdateForm">
+<form method="post" action="users.php?action=update" name ="userUpdateForm">
     <label for="id">Id :</label>
     <input type="text" name="id">
     <br />
