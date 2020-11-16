@@ -8,12 +8,12 @@ $controller = new CarsController();
 
 require_once('views/main/header.php');
 
-if(!isset($_GET['action'])) {
+if (!isset($_GET['action'])) {
     echo $controller->getCars();
 }
 
-if(isset($_GET['action'])) {
-    switch($_GET['action']) {
+if (isset($_GET['action'])) {
+    switch ($_GET['action']) {
         case 'create':
             echo $controller->createCar();
             require('views/car/car_create.php');
@@ -30,7 +30,7 @@ if(isset($_GET['action'])) {
             echo $controller->deleteCar();
             require('views/car/car_delete.php');
         break;
-        default;
+        default:
             echo $controller->getCars();
             require('views/car/car_create.php');
     }

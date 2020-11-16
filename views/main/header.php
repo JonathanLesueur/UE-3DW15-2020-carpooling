@@ -22,6 +22,14 @@
                         <li><a href="cars.php?action=delete"><span>Supprimer une Voiture</span></a></li>
                     </ul>
                 </li>
+                <li><span>Annonces</span>
+                    <ul>
+                        <li><a href="annonces.php?action=create"><span>Créer une Annonce</span></a></li>
+                        <li><a href="annonces.php?action=update"><span>Modifier une Annonce</span></a></li>
+                        <li><a href="annonces.php?action=read"><span>Voir les Annonces</span></a></li>
+                        <li><a href="annonces.php?action=delete"><span>Supprimer une Annonce</span></a></li>
+                    </ul>
+                </li>
                 <li><span>Réservations</span>
                     <ul>
                         <li><a href="reservations.php?action=create"><span>Créer une Réservation</span></a></li>

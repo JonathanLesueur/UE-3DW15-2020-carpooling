@@ -247,4 +247,75 @@ class DataBaseService
 
         return $result;
     }
+
+        /**
+     * Créer une réservations
+     */
+    public function createAnnonce(string $lieu_depart, string $lieu_arrivee, DateTime $date_depart, DateTime $date_arrivee): bool
+    {
+        $result = false;
+
+        $data = [
+            'lieu_depart' => $lieu_depart,
+            'lieu_arrivee' => $lieu_arrivee,
+            'date_depart' => $date_depart->format('Y-m-d H:i:s'),
+            'date_arrivee' => $date_arrivee->format('Y-m-d H:i:s'),
+        ];
+        $sql = 'INSERT INTO annonces (lieu_depart, lieu_arrivee, date_depart, date_arrivee) VALUES (:lieu_depart, :lieu_arrivee, :date_depart, :date_arrivee)';
+        $query = $this->connection->prepare($sql);
+        $result = $query->execute($data);
+
+        return $result;
+    }
+    /** 
+     * Mettre à jour une annonce
+     */
+    public function updateAnnonce(int $id, string $lieu_depart, string $lieu_arrivee, DateTime $date_depart, DateTime $date_arrivee): bool
+    {
+        $result = false;
+
+        $data = [
+            'id' => $id,
+            'lieu_depart' => $lieu_depart,
+            'lieu_arrivee' => $lieu_arrivee,
+            'date_depart' => $date_depart->format('Y-m-d H:i:s'),
+            'date_arrivee' => $date_arrivee->format('Y-m-d H:i:s'),
+        ];
+        $sql = 'UPDATE annonces SET lieu_depart = :lieu_depart, lieu_arrivee = :lieu_arrivee, date_depart = :date_depart, date_arrivee = :date_arrivee WHERE id = :id;';
+        $query = $this->connection->prepare($sql);
+        $result = $query->execute($data);
+
+        return $result;
+    }
+    /** 
+     * Récupérer toutes les annonces
+     */
+    public function getAnnonces(): array
+    {
+        $_annonces = [];
+
+        $sql = 'SELECT * FROM annonces';
+        $query = $this->connection->query($sql);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $_annonces = $results;
+        }
+
+        return $_annonces;
+    }
+    /** 
+     * Supprimer une annonce
+     */
+    public function deleteAnnonce(int $id): bool
+    {
+        $result = false;
+        $data = [
+            'id' => $id,
+        ];
+        $sql = 'DELETE FROM annonces WHERE id = :id;';
+        $query = $this->connection->prepare($sql);
+        $result = $query->execute($data);
+
+        return $result;
+    }
 }

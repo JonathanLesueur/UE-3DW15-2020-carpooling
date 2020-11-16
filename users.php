@@ -8,12 +8,12 @@ $controller = new UsersController();
 
 require_once('views/main/header.php');
 
-if(!isset($_GET['action'])) {
+if (!isset($_GET['action'])) {
     echo $controller->getUsers();
 }
 
-if(isset($_GET['action'])) {
-    switch($_GET['action']) {
+if (isset($_GET['action'])) {
+    switch ($_GET['action']) {
         case 'create':
             echo $controller->createUser();
             require('views/user/user_create.php');
@@ -30,7 +30,7 @@ if(isset($_GET['action'])) {
             echo $controller->deleteUser();
             require('views/user/user_delete.php');
         break;
-        default;
+        default:
             echo $controller->getUsers();
             require('views/user/user_read.php');
     }

@@ -37,16 +37,16 @@ class CarsController
     {
         $html = '';
 
-        $usersService = new CarsService();
-        $users = $usersService->getCars();
+        $carsService = new CarsService();
+        $cars = $carsService->getCars();
 
-        foreach ($users as $user) {
+        foreach ($cars as $car) {
             $html .=
-                '#' . $user->getId() . ' ' .
-                $user->getMarque() . ' ' .
-                $user->getModele() . ' ' .
-                $user->getCouleur() . ' ' .
-                $user->getCirculation()->format('d-m-Y') . '<br />';
+                '#' . $car->getId() . ' ' .
+                $car->getMarque() . ' ' .
+                $car->getModele() . ' ' .
+                $car->getCouleur() . ' ' .
+                $car->getCirculation()->format('d-m-Y') . '<br />';
         }
 
         return $html;

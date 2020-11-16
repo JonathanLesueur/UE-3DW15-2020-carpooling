@@ -12,7 +12,6 @@ class Reservation
     private $lieu_depart;
     private $lieu_arrivee;
 
-
     /**
      * Get the value of id
      */

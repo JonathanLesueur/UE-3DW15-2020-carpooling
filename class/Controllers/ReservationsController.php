@@ -13,6 +13,7 @@ class ReservationsController
            isset($_POST['date_depart']) &&
            isset($_POST['lieu_depart']) &&
            isset($_POST['lieu_arrivee'])) {
+               
             $reservationsService = new ReservationsService();
             $isOk = $reservationsService->setReservation(
                 null,
@@ -35,16 +36,16 @@ class ReservationsController
     {
         $html = '';
 
-        $usersService = new ReservationsService();
-        $users = $usersService->getReservations();
+        $reservationsService = new ReservationsService();
+        $reservations = $reservationsService->getReservations();
 
-        foreach ($users as $user) {
+        foreach ($reservations as $reservation) {
             $html .=
-                '#' . $user->getId() . ' ' .
-                $user->getUtilisateur() . ' ' .
-                $user->getLieu_arrivee() . ' ' .
-                $user->getLieu_depart() . ' ' .
-                $user->getDate_depart()->format('d-m-Y') . '<br />';
+                '#' . $reservation->getId() . ' ' .
+                $reservation->getUtilisateur() . ' ' .
+                $reservation->getLieu_arrivee() . ' ' .
+                $reservation->getLieu_depart() . ' ' .
+                $reservation->getDate_depart()->format('d-m-Y') . '<br />';
         }
 
         return $html;
@@ -58,6 +59,7 @@ class ReservationsController
             isset($_POST['date_depart']) &&
             isset($_POST['lieu_depart']) &&
             isset($_POST['lieu_arrivee'])) {
+
             $reservationsService = new ReservationsService();
             $isOk = $reservationsService->setReservation(
                 $_POST['id'],
