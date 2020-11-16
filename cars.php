@@ -20,15 +20,15 @@ if(isset($_GET['action'])) {
         break;
         case 'read':
             echo $controller->getCars();
-            require('views/car/car_create.php');
+            require('views/car/car_read.php');
         break;
         case 'update':
             echo $controller->updateCar();
-            require('views/car/car_create.php');
+            require('views/car/car_update.php');
         break;
         case 'delete':
             echo $controller->deleteCar();
-            require('views/car/car_create.php');
+            require('views/car/car_delete.php');
         break;
         default;
             echo $controller->getCars();
