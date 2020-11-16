@@ -143,7 +143,7 @@ class DataBaseService
             'marque' => $marque,
             'couleur' => $couleur,
             'puissance_moteur' => $puissanceMoteur,
-            'mise_circulation' => $circulation->format(DateTime::RFC3339),
+            'mise_circulation' => $circulation->format('Y-m-d H:i:s'),
             'modele' => $modele
         ];
         $sql = 'UPDATE cars SET marque = :marque, couleur = :couleur, puissance_moteur = :puissance_moteur, mise_circulation = :mise_circulation, :modele = modele WHERE id = :id;';
