@@ -8,12 +8,12 @@ $controller = new ReservationsController();
 
 require_once('views/main/header.php');
 
-if(!isset($_GET['action'])) {
+if (!isset($_GET['action'])) {
     echo $controller->getReservations();
 }
 
-if(isset($_GET['action'])) {
-    switch($_GET['action']) {
+if (isset($_GET['action'])) {
+    switch ($_GET['action']) {
         case 'create':
             echo $controller->createReservation();
             require('views/reservation/reservation_create.php');
@@ -30,7 +30,7 @@ if(isset($_GET['action'])) {
             echo $controller->deleteReservation();
             require('views/reservation/reservation_delete.php');
         break;
-        default;
+        default:
             echo $controller->getReservations();
             require('views/reservation/reservation_create.php');
     }

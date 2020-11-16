@@ -55,7 +55,7 @@ class CarsService
         $result = false;
 
         $dataBaseService = new DataBaseService();
-        $result = $dataBaseService->deleteUser($id);
+        $result = $dataBaseService->deleteCar($id);
 
         return $result;
     }

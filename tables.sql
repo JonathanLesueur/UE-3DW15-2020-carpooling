@@ -35,3 +35,13 @@ CREATE TABLE `reservations` (
   `lieu_arrivee` tinytext NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `annonces` (
+  `id` int(11) AUTO_INCREMENT NOT NULL,
+  `lieu_depart` tinytext NOT NULL,
+  `lieu_arrivee` tinytext NOT NULL,
+  `date_depart` datetime NOT NULL,
+  `date_arrivee` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

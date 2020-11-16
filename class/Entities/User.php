@@ -12,6 +12,11 @@ class User
     private $email;
     private $birthday;
 
+    /* Préparation pour la suite */
+    private $voiture;
+    private $annonces;
+    private $reservations;
+
     public function getId(): string
     {
         return $this->id;
