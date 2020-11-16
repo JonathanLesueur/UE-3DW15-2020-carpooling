@@ -41,7 +41,7 @@ class DataBaseService
             'firstname' => $firstname,
             'lastname' => $lastname,
             'email' => $email,
-            'birthday' => $birthday->format(DateTime::RFC3339),
+            'birthday' => $birthday->format('Y-m-d H:i:s'),
         ];
         $sql = 'INSERT INTO users (firstname, lastname, email, birthday) VALUES (:firstname, :lastname, :email, :birthday)';
         $query = $this->connection->prepare($sql);
@@ -103,6 +103,10 @@ class DataBaseService
 
         return $isOk;
     }
+
+    /**
+     * Créer une voiture
+     */
     public function createCar(string $marque, string $couleur, DateTime $circulation, int $puissanceMoteur, string $modele): bool
     {
         $result = false;
@@ -121,6 +125,9 @@ class DataBaseService
 
         return $result;
     }
+    /**
+     * Récupérer toutes les voitures
+     */
     public function getCars(): array
     {
         $_cars = [];
@@ -134,6 +141,9 @@ class DataBaseService
 
         return $_cars;
     }
+    /**
+     * Mettre à jour une voiture
+     */
     public function updateCar(int $id, string $marque, string $couleur, DateTime $circulation, int $puissanceMoteur, string $modele): bool
     {
         $result = false;
@@ -152,6 +162,9 @@ class DataBaseService
 
         return $result;
     }
+    /** 
+     * Supprimer une voiture
+     */
     public function deleteCar(int $id): bool
     {
         $result = false;
@@ -164,5 +177,74 @@ class DataBaseService
 
         return $result;
     }
+    /**
+     * Créer une réservations
+     */
+    public function createReservation(int $utilisateur, DateTime $date_depart, string $lieu_depart, string $lieu_arrivee): bool
+    {
+        $result = false;
 
+        $data = [
+            'utilisateur' => $utilisateur,
+            'date_depart' => $date_depart->format('Y-m-d H:i:s'),
+            'lieu_depart' => $lieu_depart,
+            'lieu_arrivee' => $lieu_arrivee,
+        ];
+        $sql = 'INSERT INTO reservations (utilisateur, date_depart, lieu_depart, lieu_arrivee) VALUES (:utilisateur, :date_depart, :lieu_depart, :lieu_arrivee)';
+        $query = $this->connection->prepare($sql);
+        $result = $query->execute($data);
+
+        return $result;
+    }
+    /** 
+     * Mettre à jour une réservation
+     */
+    public function updateReservation(int $id, int $utilisateur, DateTime $date_depart, string $lieu_depart, string $lieu_arrivee): bool
+    {
+        $result = false;
+
+        $data = [
+            'id' => $id,
+            'utilisateur' => $utilisateur,
+            'date_depart' => $date_depart->format('Y-m-d H:i:s'),
+            'lieu_depart' => $lieu_depart,
+            'lieu_arrivee' => $lieu_arrivee,
+        ];
+        $sql = 'UPDATE reservations SET utilisateur = :utilisateur, date_depart = :date_depart, lieu_depart = :lieu_depart, lieu_arrivee = :lieu_arrivee WHERE id = :id;';
+        $query = $this->connection->prepare($sql);
+        $result = $query->execute($data);
+
+        return $result;
+    }
+    /** 
+     * Récupérer toutes les réservations
+     */
+    public function getReservations(): array
+    {
+        $_reservations = [];
+
+        $sql = 'SELECT * FROM reservations';
+        $query = $this->connection->query($sql);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $_reservations = $results;
+        }
+
+        return $_reservations;
+    }
+    /** 
+     * Supprimer une réservation
+     */
+    public function deleteReservation(int $id): bool
+    {
+        $result = false;
+        $data = [
+            'id' => $id,
+        ];
+        $sql = 'DELETE FROM reservations WHERE id = :id;';
+        $query = $this->connection->prepare($sql);
+        $result = $query->execute($data);
+
+        return $result;
+    }
 }
