@@ -7,7 +7,7 @@ use DateTime;
 
 class AnnoncesService
 {
-    public function setAnnonce(?int $id, string $lieu_depart, string $lieu_arrivee, DateTime $date_depart, DateTime $date_arrivee): bool
+    public function setAnnonce(?int $id, string $lieu_depart, string $lieu_arrivee, string $date_depart, string $date_arrivee): bool
     {
         $result = false;
 
