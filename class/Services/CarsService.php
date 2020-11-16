@@ -12,7 +12,7 @@ class CarsService
         $result = false;
 
         $dataBaseService = new DataBaseService();
-        $circulationDate = new Datetime($mise_circulation);
+        $circulationDate = new DateTime($mise_circulation);
 
         if(empty($id)) {
             $result = $dataBaseService->createCar($marque, $couleur, $circulationDate, $puissanceMoteur, $modele);
