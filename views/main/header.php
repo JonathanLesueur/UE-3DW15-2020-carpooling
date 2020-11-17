@@ -30,6 +30,14 @@
                         <li><a href="annonces.php?action=delete"><span>Supprimer une Annonce</span></a></li>
                     </ul>
                 </li>
+                <li><span>Commentaires</span>
+                    <ul>
+                        <li><a href="comments.php?action=create"><span>Créer un Commentaire</span></a></li>
+                        <li><a href="comments.php?action=update"><span>Modifier un Commentaire</span></a></li>
+                        <li><a href="comments.php?action=read"><span>Voir les Commentaires</span></a></li>
+                        <li><a href="comments.php?action=delete"><span>Supprimer un Commentaire</span></a></li>
+                    </ul>
+                </li>
                 <li><span>Réservations</span>
                     <ul>
                         <li><a href="reservations.php?action=create"><span>Créer une Réservation</span></a></li>

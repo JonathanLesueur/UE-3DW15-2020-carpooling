@@ -248,7 +248,7 @@ class DataBaseService
         return $result;
     }
 
-        /**
+    /**
      * Créer une réservations
      */
     public function createAnnonce(string $lieu_depart, string $lieu_arrivee, DateTime $date_depart, DateTime $date_arrivee): bool
@@ -313,6 +313,77 @@ class DataBaseService
             'id' => $id,
         ];
         $sql = 'DELETE FROM annonces WHERE id = :id;';
+        $query = $this->connection->prepare($sql);
+        $result = $query->execute($data);
+
+        return $result;
+    }
+
+    /**
+     * Créer un commentaire
+     */
+    public function createComment(string $titre, string $contenu, int $utilisateur, DateTime $date_ecriture): bool
+    {
+        $result = false;
+
+        $data = [
+            'titre' => $titre,
+            'contenu' => $contenu,
+            'utilisateur' => $utilisateur,
+            'date_ecriture' => $date_ecriture->format('Y-m-d H:i:s'),
+        ];
+        $sql = 'INSERT INTO comments (titre, contenu, utilisateur, date_ecriture) VALUES (:titre, :contenu, :utilisateur, :date_ecriture)';
+        $query = $this->connection->prepare($sql);
+        $result = $query->execute($data);
+
+        return $result;
+    }
+    /** 
+     * Mettre à jour un commentaire
+     */
+    public function updateComment(int $id, string $titre, string $contenu, int $utilisateur, DateTime $date_ecriture): bool
+    {
+        $result = false;
+
+        $data = [
+            'id' => $id,
+            'titre' => $titre,
+            'contenu' => $contenu,
+            'utilisateur' => $utilisateur,
+            'date_ecriture' => $date_ecriture->format('Y-m-d H:i:s'),
+        ];
+        $sql = 'UPDATE comments SET titre = :titre, contenu = :contenu, utilisateur = :utilisateur, date_ecriture = :date_ecriture WHERE id = :id;';
+        $query = $this->connection->prepare($sql);
+        $result = $query->execute($data);
+
+        return $result;
+    }
+    /** 
+     * Récupérer tous les commentaires
+     */
+    public function getComments(): array
+    {
+        $_annonces = [];
+
+        $sql = 'SELECT * FROM comments';
+        $query = $this->connection->query($sql);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $_annonces = $results;
+        }
+
+        return $_annonces;
+    }
+    /** 
+     * Supprimer un commentaire
+     */
+    public function deleteComment(int $id): bool
+    {
+        $result = false;
+        $data = [
+            'id' => $id,
+        ];
+        $sql = 'DELETE FROM comments WHERE id = :id;';
         $query = $this->connection->prepare($sql);
         $result = $query->execute($data);
 

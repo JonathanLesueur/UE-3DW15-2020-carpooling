@@ -7,7 +7,7 @@ use DateTime;
 
 class ReservationsService
 {
-    public function setReservation(?int $id, string $date_depart, string $lieu_depart, string $lieu_arrivee, int $utilisateur): bool
+    public function setReservation(?int $id, string $utilisateur, string $date_depart, string $lieu_depart, string $lieu_arrivee): bool
     {
         $result = false;
         $dataBaseService = new DataBaseService();
