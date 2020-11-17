@@ -29,7 +29,6 @@ class CarsController
                 $html = 'Erreur lors de l\'enregistrement de la voiture.';
             }
         }
-
         return $html;
     }
 

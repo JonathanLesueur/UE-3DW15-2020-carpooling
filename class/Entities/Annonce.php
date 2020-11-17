@@ -20,7 +20,7 @@ class Annonce
 
     /**
      * Get the value of id
-     */ 
+     */
     public function getId(): int
     {
         return $this->id;
@@ -30,7 +30,7 @@ class Annonce
      * Set the value of id
      *
      * @return  self
-     */ 
+     */
     public function setId(int $id): void
     {
         $this->id = $id;
@@ -38,7 +38,7 @@ class Annonce
 
     /**
      * Get the value of lieu_depart
-     */ 
+     */
     public function getLieuDepart(): string
     {
         return $this->lieu_depart;
@@ -48,7 +48,7 @@ class Annonce
      * Set the value of lieu_depart
      *
      * @return  self
-     */ 
+     */
     public function setLieuDepart(string $lieu_depart): void
     {
         $this->lieu_depart = $lieu_depart;
@@ -56,7 +56,7 @@ class Annonce
 
     /**
      * Get the value of lieu_arrivee
-     */ 
+     */
     public function getLieuArrivee(): string
     {
         return $this->lieu_arrivee;
@@ -66,7 +66,7 @@ class Annonce
      * Set the value of lieu_arrivee
      *
      * @return  self
-     */ 
+     */
     public function setLieuArrivee(string $lieu_arrivee): void
     {
         $this->lieu_arrivee = $lieu_arrivee;
@@ -74,7 +74,7 @@ class Annonce
 
     /**
      * Get the value of date_depart
-     */ 
+     */
     public function getDateDepart(): DateTime
     {
         return $this->date_depart;
@@ -84,7 +84,7 @@ class Annonce
      * Set the value of date_depart
      *
      * @return  self
-     */ 
+     */
     public function setDateDepart(DateTime $date_depart): void
     {
         $this->date_depart = $date_depart;
@@ -92,7 +92,7 @@ class Annonce
 
     /**
      * Get the value of date_arrivee
-     */ 
+     */
     public function getDateArrivee(): DateTime
     {
         return $this->date_arrivee;
@@ -102,7 +102,7 @@ class Annonce
      * Set the value of date_arrivee
      *
      * @return  self
-     */ 
+     */
     public function setDateArrivee(DateTime $date_arrivee): void
     {
         $this->date_arrivee = $date_arrivee;

@@ -33,7 +33,7 @@ class Reservation
     /**
      * Get the value of utilisateur
      */
-    public function getUtilisateur(): User
+    public function getUtilisateur(): string
     {
         return $this->utilisateur;
     }
@@ -43,7 +43,7 @@ class Reservation
      *
      * @return  self
      */
-    public function setUtilisateur(User $utilisateur): void
+    public function setUtilisateur(string $utilisateur): void
     {
         $this->utilisateur = $utilisateur;
     }
@@ -51,7 +51,7 @@ class Reservation
     /**
      * Get the value of date_depart
      */
-    public function getDate_depart(): DateTime
+    public function getDateDepart(): DateTime
     {
         return $this->date_depart;
     }
@@ -87,7 +87,7 @@ class Reservation
     /**
      * Get the value of lieu_arrivee
      */
-    public function getLieuArrive(): string
+    public function getLieuArrivee(): string
     {
         return $this->lieu_arrivee;
     }

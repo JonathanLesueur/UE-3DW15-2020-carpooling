@@ -43,9 +43,9 @@ class ReservationsController
             $html .=
                 '#' . $reservation->getId() . ' ' .
                 $reservation->getUtilisateur() . ' ' .
-                $reservation->getLieu_arrivee() . ' ' .
-                $reservation->getLieu_depart() . ' ' .
-                $reservation->getDate_depart()->format('d-m-Y') . '<br />';
+                $reservation->getLieuArrivee() . ' ' .
+                $reservation->getLieuDepart() . ' ' .
+                $reservation->getDateDepart()->format('d-m-Y') . '<br />';
         }
 
         return $html;
