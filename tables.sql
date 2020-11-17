@@ -45,3 +45,12 @@ CREATE TABLE `annonces` (
   `date_arrivee` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `comments` (
+  `id` int(11) AUTO_INCREMENT NOT NULL,
+  `titre` text NOT NULL,
+  `contenu` text NOT NULL,
+  `utilisateur` int(11) NOT NULL,
+  `date_ecriture` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
