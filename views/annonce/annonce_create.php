@@ -1,4 +1,4 @@
-<p>Création d'une voiture</p>
+<p>Création d'une annonce</p>
 <form method="post" action="annonces.php?action=create" name="annonceCreateForm">
     <label for="lieu_depart">Lieu de départ :<br>
         <input name="lieu_depart" id="lieu_depart" type="text">

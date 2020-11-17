@@ -92,3 +92,28 @@ main {
     width: 80%;
     margin: 20px auto;
 }
+
+label {
+    margin: 20px 0;
+}
+
+input, textarea {
+    padding: 4px 10px;
+    border: 1px solid #cccccc;
+    text-align: left;
+    color: #000000;
+    border-radius: 5px;
+    width: 100%;
+}
+
+input[type="submit"] {
+    width: max-content;
+    background-color: #62a762;
+    color: #FFFFFF;
+    border: rgb(13, 75, 13);
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #549754;
+}
