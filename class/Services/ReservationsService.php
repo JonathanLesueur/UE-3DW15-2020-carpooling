@@ -3,22 +3,24 @@
 namespace App\Services;
 
 use App\Entities\Reservation;
+use App\Entities\User;
 use DateTime;
 
 class ReservationsService
 {
-    public function setReservation(?int $id, string $utilisateur, string $date_depart, string $lieu_depart, string $lieu_arrivee): bool
+    public function setReservation(?int $id, string $date_depart, string $lieu_depart, string $lieu_arrivee): string
     {
-        $result = false;
+        $reservationId = '';
         $dataBaseService = new DataBaseService();
         $departDate = new DateTime($date_depart);
 
         if(empty($id)) {
-            $result = $dataBaseService->createReservation($utilisateur, $departDate, $lieu_depart, $lieu_arrivee);
+            $reservationId = $dataBaseService->createReservation($departDate, $lieu_depart, $lieu_arrivee);
         } else {
-            $result = $dataBaseService->updateReservation($id, $utilisateur, $departDate, $lieu_depart, $lieu_arrivee);
+            $dataBaseService->updateReservation($id, $departDate, $lieu_depart, $lieu_arrivee);
+            $reservationId = $id;
         }
-        return $result;
+        return $reservationId;
     }
 
     public function getReservations(): array
@@ -31,7 +33,6 @@ class ReservationsService
             foreach($reservationsDTO as $reservationDTO) {
                 $reservation = new Reservation();
                 $reservation->setId($reservationDTO['id']);
-                $reservation->setUtilisateur($reservationDTO['utilisateur']);
                 $reservation->setLieuDepart($reservationDTO['lieu_depart']);
                 $reservation->setLieuArrivee($reservationDTO['lieu_arrivee']);
 
@@ -39,6 +40,9 @@ class ReservationsService
                 if($date !== false) {
                     $reservation->setDateDepart($date);
                 }
+
+                $_users = $this->getReservationUsers($reservationDTO['id']);
+                $reservation->setUtilisateurs($_users);
 
                 $_reservations[] = $reservation;
             }
@@ -53,5 +57,41 @@ class ReservationsService
         $result = $dataBaseService->deleteReservation($id);
 
         return $result;
+    }
+
+    public function setReservationUsers(string $reservationId, string $userId): bool
+    {
+        $isOk = false;
+
+        $dataBaseService = new DataBaseService();
+        $isOk = $dataBaseService->setReservationUsers($reservationId, $userId);
+
+        return $isOk;
+    }
+
+    public function getReservationUsers(string $reservationId): array
+    {
+        $_users = array();
+
+        $dataBaseService = new DataBaseService();
+        $usersDTO = $dataBaseService->getReservationUsers($reservationId);
+        if(!empty($usersDTO)) {
+            foreach($usersDTO as $userDTO) {
+                $user = new User();
+                $user->setId($userDTO['id']);
+                $user->setFirstName($userDTO['firstname']);
+                $user->setLastName($userDTO['lastname']);
+                $user->setEmail($userDTO['email']);
+
+                $date = new DateTime($userDTO['birthday']);
+                if($date) {
+                    $user->setBirthday($date);
+                }
+
+                $_users[] = $user;
+            }
+            
+        }
+        return $_users;
     }
 }

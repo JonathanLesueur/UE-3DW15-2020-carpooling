@@ -7,7 +7,6 @@ use DateTime;
 class Reservation
 {
     private $id;
-    private $utilisateur;
     private $date_depart;
     private $lieu_depart;
     private $lieu_arrivee;
@@ -29,25 +28,7 @@ class Reservation
     {
         $this->id = $id;
     }
-
-    /**
-     * Get the value of utilisateur
-     */
-    public function getUtilisateur(): string
-    {
-        return $this->utilisateur;
-    }
-
-    /**
-     * Set the value of utilisateur
-     *
-     * @return  self
-     */
-    public function setUtilisateur(string $utilisateur): void
-    {
-        $this->utilisateur = $utilisateur;
-    }
-
+    
     /**
      * Get the value of date_depart
      */
@@ -100,5 +81,15 @@ class Reservation
     public function setLieuArrivee(string $lieu_arrivee): void
     {
         $this->lieu_arrivee = $lieu_arrivee;
+    }
+
+    public function setUtilisateurs(array $utilisateurs): void
+    {
+        $this->utilisateurs = $utilisateurs;
+    }
+
+    public function getUtilisateurs(): array
+    {
+        return $this->utilisateurs;
     }
 }

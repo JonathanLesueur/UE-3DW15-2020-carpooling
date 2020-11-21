@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Services\ReservationsService;
+use App\Services\UsersService;
 
 class ReservationsController
 {
@@ -15,19 +16,26 @@ class ReservationsController
            isset($_POST['lieu_arrivee'])) {
                
             $reservationsService = new ReservationsService();
-            $isOk = $reservationsService->setReservation(
+            $reservationId = $reservationsService->setReservation(
                 null,
-                $_POST['utilisateur'],
                 $_POST['date_depart'],
                 $_POST['lieu_depart'],
                 $_POST['lieu_arrivee']
             );
+
+            $isOk = true;
+            if(!empty($_POST['utilisateur'])) {
+                $isOk = $reservationsService->setReservationUsers($reservationId, $_POST['utilisateur']);
+            }
             if ($isOk) {
                 $result_create = 'Réservation enregistrée avec succès.';
             } else {
                 $result_create = 'Erreur lors de l\'enregistrement de la réservation.';
             }
         }
+
+        $usersService = new UsersService();
+        $_users = $usersService->getUsers();
 
         require 'views/reservation/reservation_create.php';
     }
@@ -54,7 +62,6 @@ class ReservationsController
             $reservationsService = new ReservationsService();
             $isOk = $reservationsService->setReservation(
                 $_POST['id'],
-                $_POST['utilisateur'],
                 $_POST['date_depart'],
                 $_POST['lieu_depart'],
                 $_POST['lieu_arrivee']
@@ -65,6 +72,10 @@ class ReservationsController
                 $result_update = 'Erreur lors de la mise à jour de la réservation.';
             }
         }
+
+        $usersService = new UsersService();
+        $_users = $usersService->getUsers();
+        
         require 'views/reservation/reservation_update.php';
     }
 

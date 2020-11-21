@@ -105,7 +105,7 @@ label {
 input {
     height: 20px;
 }
-input, textarea {
+input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]), textarea {
     display: block;
     padding: 4px 10px;
     border: 1px solid #cccccc;
@@ -115,7 +115,12 @@ input, textarea {
     width: 100%;
     transition: all .2s ease;
 }
-
+input[type="checkbox"], input[type="radio"] {
+    vertical-align: middle;
+}
+.choice-group {
+    display: block;
+}
 input:not([type="submit"]):focus, textarea:focus {
     transition: all .2s ease;
     -webkit-box-shadow: 0px 0px 5px 0px rgb(90, 124, 187);
@@ -152,7 +157,8 @@ table tr {
 }
 
 table td {
-    width: auto;
+    width: max-content;
+    max-width: 250px;
     padding: 10px;
     vertical-align: middle;
     text-align: center;
