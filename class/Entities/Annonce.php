@@ -13,7 +13,6 @@ class Annonce
     private $date_arrivee;
 
     /* Préparation pour la suite */
-    private $utilisateur;
     private $voiture;
     private $commentaires;
     private $reservations;
@@ -106,5 +105,59 @@ class Annonce
     public function setDateArrivee(DateTime $date_arrivee): void
     {
         $this->date_arrivee = $date_arrivee;
+    }
+
+    /**
+     * Get the value of voiture
+     */ 
+    public function getVoiture()
+    {
+        return $this->voiture;
+    }
+
+    /**
+     * Set the value of voiture
+     *
+     * @return  self
+     */ 
+    public function setVoiture(Car $voiture): void
+    {
+        $this->voiture = $voiture;
+    }
+
+    /**
+     * Get the value of commentaires
+     */ 
+    public function getCommentaires(): array
+    {
+        return $this->commentaires;
+    }
+
+    /**
+     * Set the value of commentaires
+     *
+     * @return  self
+     */ 
+    public function setCommentaires(array $commentaires): void
+    {
+        $this->commentaires = $commentaires;
+    }
+
+    /**
+     * Get the value of reservations
+     */ 
+    public function getReservations(): array
+    {
+        return $this->reservations;
+    }
+
+    /**
+     * Set the value of reservations
+     *
+     * @return  self
+     */ 
+    public function setReservations(array $reservations): void
+    {
+        $this->reservations = $reservations;
     }
 }

@@ -17,9 +17,11 @@ class UsersService
         $dataBaseService = new DataBaseService();
         $birthdayDateTime = new DateTime($birthday);
         if (empty($id)) {
-            $isOk = $dataBaseService->createUser($firstname, $lastname, $email, $birthdayDateTime);
+            $isOk = $dataBaseService->createUser($firstname, $lastname, $email, $birthdayDateTime); 
         } else {
             $isOk = $dataBaseService->updateUser($id, $firstname, $lastname, $email, $birthdayDateTime);
+
+            $userId = $id;
         }
 
         return $isOk;

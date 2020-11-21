@@ -93,17 +93,35 @@ main {
     margin: 20px auto;
 }
 
-label {
-    margin: 20px 0;
+.form-row {
+    display: block;
+    width: 100%;
+    margin: 15px;
 }
-
+label {
+    display: block;
+    margin: 5px 0;
+}
+input {
+    height: 20px;
+}
 input, textarea {
+    display: block;
     padding: 4px 10px;
     border: 1px solid #cccccc;
     text-align: left;
     color: #000000;
     border-radius: 5px;
     width: 100%;
+    transition: all .2s ease;
+}
+
+input:not([type="submit"]):focus, textarea:focus {
+    transition: all .2s ease;
+    -webkit-box-shadow: 0px 0px 5px 0px rgb(90, 124, 187);
+    -moz-box-shadow: 0px 0px 5px 0px rgb(90, 124, 187);
+    box-shadow: 0px 0px 5px 0px rgb(90, 124, 187);
+    border: 1px solid rgb(90, 124, 187);
 }
 
 input[type="submit"] {
@@ -111,9 +129,43 @@ input[type="submit"] {
     background-color: #62a762;
     color: #FFFFFF;
     border: rgb(13, 75, 13);
+    padding: 10px 15px;
+    text-align: center;
     cursor: pointer;
+    height: auto;
 }
 
 input[type="submit"]:hover {
-    background-color: #549754;
+    background-color: rgb(88, 184, 88);
+}
+
+table {
+    width: 80%;
+    display: block;
+    margin: auto auto;
+    border-spacing : 0;
+    border-collapse : collapse;
+}
+
+table tr {
+    width: 100%;
+}
+
+table td {
+    width: auto;
+    padding: 10px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+table tr td {
+    border-right: 1px dashed #cccccc;
+}
+
+table tr td:first-of-type {
+    border-left: 1px dashed #cccccc;
+}
+
+table tr {
+    border-bottom: 1px dashed #e4e4e4;
 }

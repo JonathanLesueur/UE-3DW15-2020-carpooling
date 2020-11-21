@@ -1,19 +1,31 @@
-<p>Mise à jour d'une annonce</p>
+<h1>Mise à jour d'une annonce</h1>
+<?= $result_update ?>
 <form method="post" action="annonces.php?action=update" name="annonceUpdateForm">
-    <label for="lieu_depart">Id :<br>
-        <input name="id" id="id" type="number">
-    </label><br>
-    <label for="lieu_depart">Lieu de départ :<br>
-        <input name="lieu_depart" id="lieu_depart" type="text">
-    </label><br>
-    <label for="lieu_arrivee">Lieu d'arrivée :<br>
-        <input name="lieu_arrivee" id="lieu_arrivee" type="text">
-    </label><br>
-    <label for="date_depart">Date de départ :<br>
-        <input name="date_depart" id="date_depart" type="date">
-    </label><br>
-    <label for="date_arrivee">Date d'arrivée :<br>
-        <input name="date_arrivee" id="date_arrivee" type="date">
-    </label><br>
-    <input type="submit" value="Mettre à jour l'annonce">
+    <div class="form-row">
+        <label for="id">Id</label>
+        <input name="ida" type="text">
+    </div>
+    <div class="form-row">
+        <label for="utilisateur">Utilisateur</label>
+        <input name="utilisateur" type="text">
+    </div>
+    <div class="form-row">
+        <label for="lieu_depart">Lieu de départ</label>
+        <input name="lieu_depart" type="text">
+    </div>
+    <div class="form-row">
+        <label for="date_depart">Date de départ</label>
+        <input name="date_depart" type="date">
+    </div>
+    <div class="form-row">
+        <label for="lieu_arrivee">Lieu d'arrivée</label>
+        <input name="lieu_arrivee" type="text">
+    </div>
+    <div class="form-row">
+        <label for="date_arrivee">Date d'arrivée</label>
+        <input name="date_arrivee" type="date">
+    </div>
+    <div class="form-row">
+        <input name="submit" type="submit" value="Modifier l'annonce">
+    </div>
 </form>

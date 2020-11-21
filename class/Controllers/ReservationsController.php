@@ -6,9 +6,9 @@ use App\Services\ReservationsService;
 
 class ReservationsController
 {
-    public function createReservation(): string
+    public function createReservation(): void
     {
-        $html = '';
+        $result_create = '';
         if (isset($_POST['utilisateur']) &&
            isset($_POST['date_depart']) &&
            isset($_POST['lieu_depart']) &&
@@ -23,37 +23,28 @@ class ReservationsController
                 $_POST['lieu_arrivee']
             );
             if ($isOk) {
-                $html = 'Réservation enregistrée avec succès.';
+                $result_create = 'Réservation enregistrée avec succès.';
             } else {
-                $html = 'Erreur lors de l\'enregistrement de la réservation.';
+                $result_create = 'Erreur lors de l\'enregistrement de la réservation.';
             }
         }
 
-        return $html;
+        require 'views/reservation/reservation_create.php';
     }
 
-    public function getReservations(): string
+    public function getReservations(): void
     {
-        $html = '';
 
         $reservationsService = new ReservationsService();
-        $reservations = $reservationsService->getReservations();
+        $_reservations = $reservationsService->getReservations();
 
-        foreach ($reservations as $reservation) {
-            $html .=
-                '#' . $reservation->getId() . ' ' .
-                $reservation->getUtilisateur() . ' ' .
-                $reservation->getLieuArrivee() . ' ' .
-                $reservation->getLieuDepart() . ' ' .
-                $reservation->getDateDepart()->format('d-m-Y') . '<br />';
-        }
+        require 'views/reservation/reservation_read.php';
 
-        return $html;
     }
 
-    public function updateReservation(): string
+    public function updateReservation(): void
     {
-        $html = '';
+        $result_update = '';
         if (isset($_POST['id']) &&
             isset($_POST['utilisateur']) &&
             isset($_POST['date_depart']) &&
@@ -69,29 +60,28 @@ class ReservationsController
                 $_POST['lieu_arrivee']
             );
             if ($isOk) {
-                $html = 'Réservation mise à jour avec succès.';
+                $result_update = 'Réservation mise à jour avec succès.';
             } else {
-                $html = 'Erreur lors de la mise à jour de la réservation.';
+                $result_update = 'Erreur lors de la mise à jour de la réservation.';
             }
         }
-
-        return $html;
+        require 'views/reservation/reservation_update.php';
     }
 
-    public function deleteReservation(): string
+    public function deleteReservation(): void
     {
-        $html = '';
+        $result_delete = '';
 
         if (isset($_POST['id'])) {
             $reservationsService = new ReservationsService();
             $isOk = $reservationsService->deleteReservation($_POST['id']);
             if ($isOk) {
-                $html = 'Réservation supprimée avec succès.';
+                $result_delete = 'Réservation supprimée avec succès.';
             } else {
-                $html = 'Erreur lors de la supression de la réservation.';
+                $result_delete = 'Erreur lors de la supression de la réservation.';
             }
         }
-
-        return $html;
+        
+        require 'views/reservation/reservation_delete.php';
     }
 }

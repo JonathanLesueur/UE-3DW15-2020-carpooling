@@ -15,24 +15,19 @@ if (!isset($_GET['action'])) {
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
         case 'create':
-            echo $controller->createReservation();
-            require('views/reservation/reservation_create.php');
+            $controller->createReservation();
         break;
         case 'read':
-            echo $controller->getReservations();
-            require('views/reservation/reservation_read.php');
+            $controller->getReservations();
         break;
         case 'update':
-            echo $controller->updateReservation();
-            require('views/reservation/reservation_update.php');
+            $controller->updateReservation();
         break;
         case 'delete':
-            echo $controller->deleteReservation();
-            require('views/reservation/reservation_delete.php');
+            $controller->deleteReservation();
         break;
         default:
-            echo $controller->getReservations();
-            require('views/reservation/reservation_create.php');
+            $controller->getReservations();
     }
 }
 

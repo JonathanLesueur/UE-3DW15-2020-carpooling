@@ -1,16 +1,19 @@
-<p>Création d'un commentaire</p>
+<h1>Création d'un commentaire</h1>
+<?= $result_create ?>
 <form method="post" action="comments.php?action=create" name="commentCreateForm">
-    <label for="titre">Titre :</label>
-    <input type="text" name="titre">
-    <br />
-    <label for="contenu">Contenu :</label>
-    <input type="text" name="contenu">
-    <br />
-    <label for="mise_circulation">Utilisateur :</label>
-    <input type="text" name="utilisateur">
-    <br />
-    <label for="date_ecriture">Date d'écriture :</label>
-    <input type="date" name="date_ecriture">
-    <br />
-    <input type="submit" value="Créer le commentaire">
+    <div class="form-row">
+        <label for="titre">Titre</label>
+        <input name="titre" type="text">
+    </div>
+    <div class="form-row">
+        <label for="contenu">Contenu</label>
+        <input name="contenu" type="text">
+    </div>
+    <div class="form-row">
+        <label for="utilisateur">Utilisateur</label>
+        <input name="utilisateur" type="text">
+    </div>
+    <div class="form-row">
+        <input name="submit" type="submit" value="Créer le commentaire">
+    </div>
 </form>

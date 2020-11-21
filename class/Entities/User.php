@@ -13,7 +13,7 @@ class User
     private $birthday;
 
     /* Préparation pour la suite */
-    private $voiture;
+    private $voitures;
     private $annonces;
     private $reservations;
 
@@ -65,5 +65,59 @@ class User
     public function setBirthday(DateTime $birthday): void
     {
         $this->birthday = $birthday;
+    }
+
+    /**
+     * Get the value of voitures
+     */ 
+    public function getVoitures(): array
+    {
+        return $this->voitures;
+    }
+
+    /**
+     * Set the value of voitures
+     *
+     * @return  self
+     */ 
+    public function setVoitures(array $voitures)
+    {
+        $this->voitures = $voitures;
+    }
+
+    /**
+     * Get the value of annonces
+     */ 
+    public function getAnnonces(): array
+    {
+        return $this->annonces;
+    }
+
+    /**
+     * Set the value of annonces
+     *
+     * @return  self
+     */ 
+    public function setAnnonces(array $annonces)
+    {
+        $this->annonces = $annonces;
+    }
+
+    /**
+     * Get the value of reservations
+     */ 
+    public function getReservations(): array
+    {
+        return $this->reservations;
+    }
+
+    /**
+     * Set the value of reservations
+     *
+     * @return  self
+     */ 
+    public function setReservations(array $reservations)
+    {
+        $this->reservations = $reservations;
     }
 }

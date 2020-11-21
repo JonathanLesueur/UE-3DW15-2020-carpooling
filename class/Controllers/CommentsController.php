@@ -6,86 +6,73 @@ use App\Services\CommentsService;
 
 class CommentsController
 {
-    public function createComment(): string
+    public function createComment(): void
     {
-        $html = '';
+        $result_create = '';
         if (isset($_POST['titre']) &&
             isset($_POST['contenu']) &&
-            isset($_POST['utilisateur']) &&
-            isset($_POST['date_ecriture'])) {
+            isset($_POST['utilisateur'])) {
             $commentsService = new CommentsService();
             $isOk = $commentsService->setComment(
                 null,
                 $_POST['titre'],
                 $_POST['contenu'],
-                $_POST['utilisateur'],
-                $_POST['date_ecriture']
+                $_POST['utilisateur']
             );
             if ($isOk) {
-                $html = 'Commentaire enregistré avec succès.';
+                $result_create = 'Commentaire enregistré avec succès.';
             } else {
-                $html = 'Erreur lors de l\'enregistrement du commentaire.';
+                $result_create = 'Erreur lors de l\'enregistrement du commentaire.';
             }
         }
-        return $html;
+        require 'views/comment/comment_create.php';
     }
-    public function getComments(): string
+    public function getComments(): void
     {
-        $html = '';
-
+        
         $commentsService = new CommentsService();
-        $comments = $commentsService->getComments();
+        $_comments = $commentsService->getComments();
 
-        foreach ($comments as $comment) {
-            $html .=
-                '#' . $comment->getId() . ' ' .
-                $comment->getTitre() . ' ' .
-                $comment->getContenu() . ' ' .
-                $comment->getUtilisateur() . ' ' .
-                $comment->getDateEcriture()->format('d-m-Y') . '<br />';
-        }
-
-        return $html;
+    
+        require 'views/comment/comment_read.php';
     }
-    public function updateComment(): string
+    public function updateComment(): void
     {
-        $html = '';
+        $result_update = '';
         if (isset($_POST['id']) &&
            isset($_POST['titre']) &&
            isset($_POST['contenu']) &&
-           isset($_POST['utilisateur']) &&
-           isset($_POST['date_ecriture'])) {
+           isset($_POST['utilisateur'])) {
             $commentsService = new CommentsService();
             $isOk = $commentsService->setComment(
                 $_POST['id'],
                 $_POST['titre'],
                 $_POST['contenu'],
-                $_POST['utilisateur'],
-                $_POST['date_ecriture']
+                $_POST['utilisateur']
             );
             if ($isOk) {
-                $html = 'Commentaire mis à jour avec succès.';
+                $result_update = 'Commentaire mis à jour avec succès.';
             } else {
-                $html = 'Erreur lors de la mise à jour du commentaire.';
+                $result_update = 'Erreur lors de la mise à jour du commentaire.';
             }
         }
 
-        return $html;
+        require 'views/comment/comment_update.php';
     }
-    public function deleteComment(): string
+    public function deleteComment(): void
     {
-        $html = '';
+        $result_delete = '';
 
         if (isset($_POST['id'])) {
             $commentsService = new CommentsService();
             $isOk = $commentsService->deleteComment($_POST['id']);
             if ($isOk) {
-                $html = 'Commentaire supprimé avec succès.';
+                $result_delete = 'Commentaire supprimé avec succès.';
             } else {
-                $html = 'Erreur lors de la supression du commentaire.';
+                $result_delete = 'Erreur lors de la supression du commentaire.';
             }
         }
 
-        return $html;
+        require 'views/comment/comment_delete.php';
     }
 }

@@ -180,7 +180,7 @@ class DataBaseService
     /**
      * Créer une réservations
      */
-    public function createReservation(int $utilisateur, DateTime $date_depart, string $lieu_depart, string $lieu_arrivee): bool
+    public function createReservation(string $utilisateur, DateTime $date_depart, string $lieu_depart, string $lieu_arrivee): bool
     {
         $result = false;
 
@@ -199,7 +199,7 @@ class DataBaseService
     /** 
      * Mettre à jour une réservation
      */
-    public function updateReservation(int $id, int $utilisateur, DateTime $date_depart, string $lieu_depart, string $lieu_arrivee): bool
+    public function updateReservation(int $id, string $utilisateur, DateTime $date_depart, string $lieu_depart, string $lieu_arrivee): bool
     {
         $result = false;
 

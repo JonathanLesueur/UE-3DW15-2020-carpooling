@@ -15,24 +15,19 @@ if (!isset($_GET['action'])) {
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
         case 'create':
-            echo $controller->createComment();
-            require('views/comment/comment_create.php');
+            $controller->createComment();
         break;
         case 'read':
-            echo $controller->getComments();
-            require('views/comment/comment_read.php');
+            $controller->getComments();
         break;
         case 'update':
-            echo $controller->updateComment();
-            require('views/comment/comment_update.php');
+            $controller->updateComment();
         break;
         case 'delete':
-            echo $controller->deleteComment();
-            require('views/comment/comment_delete.php');
+            $controller->deleteComment();
         break;
         default:
-            echo $controller->getComments();
-            require('views/comment/comment_create.php');
+            $controller->getComments();
     }
 }
 

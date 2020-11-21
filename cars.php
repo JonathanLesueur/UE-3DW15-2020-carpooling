@@ -15,24 +15,19 @@ if (!isset($_GET['action'])) {
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
         case 'create':
-            echo $controller->createCar();
-            require('views/car/car_create.php');
+            $controller->createCar();
         break;
         case 'read':
-            echo $controller->getCars();
-            require('views/car/car_read.php');
+            $controller->getCars();
         break;
         case 'update':
-            echo $controller->updateCar();
-            require('views/car/car_update.php');
+            $controller->updateCar();
         break;
         case 'delete':
-            echo $controller->deleteCar();
-            require('views/car/car_delete.php');
+            $controller->deleteCar();
         break;
         default:
-            echo $controller->getCars();
-            require('views/car/car_create.php');
+            $controller->getCars();
     }
 }
 

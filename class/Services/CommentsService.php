@@ -7,11 +7,11 @@ use DateTime;
 
 class CommentsService
 {
-    public function setComment(?int $id, string $titre, string $contenu, int $utilisateur, string $date_ecriture): bool
+    public function setComment(?int $id, string $titre, string $contenu, int $utilisateur): bool
     {
         $result = false;
         $dataBaseService = new DataBaseService();
-        $ecritureDate = new DateTime($date_ecriture);
+        $ecritureDate = new DateTime();
 
         if (empty($id)) {
             $result = $dataBaseService->createComment($titre, $contenu, $utilisateur, $ecritureDate);

@@ -101,7 +101,7 @@ class Car
      */
     public function setPuissanceMoteur(int $puissanceMoteur): void
     {
-        $this->puissance_moteur = $puissanceMoteur;
+        $this->puissanceMoteur = $puissanceMoteur;
     }
 
     /**

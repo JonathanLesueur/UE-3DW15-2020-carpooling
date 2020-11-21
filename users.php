@@ -15,24 +15,19 @@ if (!isset($_GET['action'])) {
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
         case 'create':
-            echo $controller->createUser();
-            require('views/user/user_create.php');
+            $controller->createUser();
         break;
         case 'read':
-            echo $controller->getUsers();
-            require('views/user/user_read.php');
+            $controller->getUsers();
         break;
         case 'update':
-            echo $controller->updateUser();
-            require('views/user/user_update.php');
+            $controller->updateUser();
         break;
         case 'delete':
-            echo $controller->deleteUser();
-            require('views/user/user_delete.php');
+            $controller->deleteUser();
         break;
         default:
-            echo $controller->getUsers();
-            require('views/user/user_read.php');
+            $controller->getUsers();
     }
 }
 

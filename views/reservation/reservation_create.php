@@ -1,15 +1,23 @@
-<p>Création d'une réservation</p>
+<h1>Création d'une réservation</h1>
+<?= $result_create ?>
 <form method="post" action="reservations.php?action=create" name="reservationCreateForm">
-    <label for="utilisateur">Utilisateur :<br>
-        <input name="utilisateur" id="utilisateur" type="text">
-    </label><br>
-    <label for="date_depart">Date du départ (format dd-mm-yyyy) :<br>
-        <input name="date_depart" id="date_depart" type="date"></label><br>
-    <label for="lieu_depart">Lieu du départ :<br>
-        <input name="lieu_depart" id="lieu_depart" type="text">
-    </label><br>
-    <label for="lieu_arrivee">Lieu de l'arrivée :<br>
-        <input name="lieu_arrivee" id="lieu_arrivee" type="text">
-    </label><br>
-    <input type="submit" value="Créer une réservation">
+    <div class="form-row">
+        <label for="utilisateur">Utilisateur</label>
+        <input name="utilisateur" type="text">
+    </div>
+    <div class="form-row">
+        <label for="date_depart">Date de départ</label>
+        <input name="date_depart" type="date">
+    </div>
+    <div class="form-row">
+        <label for="lieu_depart">Lieu de départ</label>
+        <input name="lieu_depart" type="text">
+    </div>
+    <div class="form-row">
+        <label for="lieu_arrivee">Lieu d'arrivée</label>
+        <input name="lieu_arrivee" type="text">
+    </div>
+    <div class="form-row">
+        <input name="submit" type="submit" value="Créer une réservation">
+    </div>
 </form>

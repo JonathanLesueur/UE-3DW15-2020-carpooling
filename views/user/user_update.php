@@ -1,19 +1,27 @@
-<p>Mise à jour d'un utilisateur</p>
+<h1>Mise à jour d'un utilisateur</h1>
+<?= $update_result ?>
 <form method="post" action="users.php?action=update" name ="userUpdateForm">
-    <label for="id">Id :</label>
-    <input type="text" name="id">
-    <br />
-    <label for="firstname">Prénom :</label>
-    <input type="text" name="firstname">
-    <br />
-    <label for="lastname">Nom :</label>
-    <input type="text" name="lastname">
-    <br />
-    <label for="email">Email :</label>
-    <input type="text" name="email">
-    <br />
-    <label for="birthday">Date d'anniversaire au format dd-mm-yyyy :</label>
-    <input type="text" name="birthday">
-    <br />
-    <input type="submit" value="Modifier l'utilisateur">
+    <div class="form-row">
+        <label for="firstname">Id</label>
+        <input name="id" type="text">
+    </div>
+    <div class="form-row">
+        <label for="firstname">Prénom</label>
+        <input name="firstname" type="text">
+    </div>
+    <div class="form-row">
+        <label for="lastname">Nom</label>
+        <input name="lastname" type="text">
+    </div>
+    <div class="form-row">
+        <label for="email">Email</label>
+        <input name="email" typt="mail">
+    </div>
+    <div class="form-row">
+        <label for="birthday">Date de naissance</label>
+        <input name="birthday" type="text">
+    </div>
+    <div class="form-row">
+        <input name="submit" type="submit" value="Créer un utilisateur">
+    </div>
 </form>

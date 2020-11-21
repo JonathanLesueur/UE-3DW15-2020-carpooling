@@ -12,11 +12,6 @@ class Comment
     private $utilisateur;
     private $date_ecriture;
     
-    /* Préparation pour la suite */
-
-    private $annonce;
-
-    
 
     /**
      * Get the value of id

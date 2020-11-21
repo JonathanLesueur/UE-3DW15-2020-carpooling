@@ -1,19 +1,23 @@
-<p>Mise à jour d'un commentaire</p>
+<h1>Mise à jour d'un commentaire</h1>
+<?= $resulr_update ?>
 <form method="post" action="comments.php?action=update" name="commentUpdateForm">
-    <label for="id">Id :</label>
-    <input type="text" name="id">
-    <br />
-    <label for="titre">Titre :</label>
-    <input type="text" name="titre">
-    <br />
-    <label for="contenu">Contenu :</label>
-    <input type="text" name="contenu">
-    <br />
-    <label for="mise_circulation">Utilisateur :</label>
-    <input type="text" name="utilisateur">
-    <br />
-    <label for="date_ecriture">Date d'écriture :</label>
-    <input type="date" name="date_ecriture">
-    <br />
-    <input type="submit" value="Modifier le commentaire">
+    <div class="form-row">
+        <label for="id">Id</label>
+        <input name="id" type="text">
+    </div>
+    <div class="form-row">
+        <label for="titre">Titre</label>
+        <input name="titre" type="text">
+    </div>
+    <div class="form-row">
+        <label for="contenu">Contenu</label>
+        <input name="contenu" type="text">
+    </div>
+    <div class="form-row">
+        <label for="utilisateur">Utilisateur</label>
+        <input name="utilisateur" type="text">
+    </div>
+    <div class="form-row">
+        <input name="submit" type="submit" value="Modifier le commentaire">
+    </div>
 </form>

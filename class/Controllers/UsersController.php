@@ -3,15 +3,16 @@
 namespace App\Controllers;
 
 use App\Services\UsersService;
+use App\Services\CarsService;
 
 class UsersController
 {
     /**
      * Return the html for the create action.
      */
-    public function createUser(): string
+    public function createUser(): void
     {
-        $html = '';
+        $insert_result = '';
 
         // If the form have been submitted :
         if (isset($_POST['firstname']) &&
@@ -28,45 +29,38 @@ class UsersController
                 $_POST['birthday']
             );
             if ($isOk) {
-                $html = 'Utilisateur créé avec succès.';
+                $insert_result = 'Utilisateur créé avec succès.';
             } else {
-                $html = 'Erreur lors de la création de l\'utilisateur.';
+                $insert_result = 'Erreur lors de la création de l\'utilisateur.';
             }
         }
 
-        return $html;
+        $carsService = new CarsService();
+        $_cars = $carsService->getCars();
+
+        require 'views/user/user_create.php';
     }
 
     /**
      * Return the html for the read action.
      */
-    public function getUsers(): string
+    public function getUsers(): void
     {
         $html = '';
 
         // Get all users :
         $usersService = new UsersService();
-        $users = $usersService->getUsers();
+        $_users = $usersService->getUsers();
 
-        // Get html :
-        foreach ($users as $user) {
-            $html .=
-                '#' . $user->getId() . ' ' .
-                $user->getFirstname() . ' ' .
-                $user->getLastname() . ' ' .
-                $user->getEmail() . ' ' .
-                $user->getBirthday()->format('d-m-Y') . '<br />';
-        }
-
-        return $html;
+        require 'views/user/user_read.php';
     }
 
     /**
      * Update the user.
      */
-    public function updateUser(): string
+    public function updateUser(): void
     {
-        $html = '';
+        $update_result = '';
 
         // If the form have been submitted :
         if (isset($_POST['id']) &&
@@ -84,21 +78,21 @@ class UsersController
                 $_POST['birthday']
             );
             if ($isOk) {
-                $html = 'Utilisateur mis à jour avec succès.';
+                $update_result = 'Utilisateur mis à jour avec succès.';
             } else {
-                $html = 'Erreur lors de la mise à jour de l\'utilisateur.';
+                $update_result = 'Erreur lors de la mise à jour de l\'utilisateur.';
             }
         }
 
-        return $html;
+        require 'views/user/user_update.php';
     }
 
     /**
      * Delete an user.
      */
-    public function deleteUser(): string
+    public function deleteUser(): void
     {
-        $html = '';
+        $delete_result = '';
 
         // If the form have been submitted :
         if (isset($_POST['id'])) {
@@ -106,12 +100,12 @@ class UsersController
             $usersService = new UsersService();
             $isOk = $usersService->deleteUser($_POST['id']);
             if ($isOk) {
-                $html = 'Utilisateur supprimé avec succès.';
+                $delete_result = 'Utilisateur supprimé avec succès.';
             } else {
-                $html = 'Erreur lors de la supression de l\'utilisateur.';
+                $delete_result = 'Erreur lors de la supression de l\'utilisateur.';
             }
         }
 
-        return $html;
+        require 'views/user/user_delete.php';
     }
 }

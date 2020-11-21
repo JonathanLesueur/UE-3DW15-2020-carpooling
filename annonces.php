@@ -15,24 +15,19 @@ if (!isset($_GET['action'])) {
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
         case 'create':
-            echo $controller->createAnnonce();
-            require('views/annonce/annonce_create.php');
+            $controller->createAnnonce();
         break;
         case 'read':
-            echo $controller->getAnnonces();
-            require('views/annonce/annonce_read.php');
+            $controller->getAnnonces();
         break;
         case 'update':
-            echo $controller->updateAnnonce();
-            require('views/annonce/annonce_update.php');
+            $controller->updateAnnonce();
         break;
         case 'delete':
-            echo $controller->deleteAnnonce();
-            require('views/annonce/annonce_delete.php');
+            $controller->deleteAnnonce();
         break;
         default:
-            echo $controller->getAnnonces();
-            require('views/annonce/annonce_create.php');
+            $controller->getAnnonces();
     }
 }
 

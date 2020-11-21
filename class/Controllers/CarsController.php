@@ -6,9 +6,9 @@ use App\Services\CarsService;
 
 class CarsController
 {
-    public function createCar(): string
+    public function createCar(): void
     {
-        $html = '';
+        $result_create = '';
         if (isset($_POST['marque']) &&
            isset($_POST['couleur']) &&
            isset($_POST['mise_circulation']) &&
@@ -24,36 +24,29 @@ class CarsController
                 $_POST['modele']
             );
             if ($isOk) {
-                $html = 'Voiture enregistrée avec succès.';
+                $result_create = 'Voiture enregistrée avec succès.';
             } else {
-                $html = 'Erreur lors de l\'enregistrement de la voiture.';
+                $result_create = 'Erreur lors de l\'enregistrement de la voiture.';
             }
         }
-        return $html;
+
+        require('views/car/car_create.php');
+
     }
 
-    public function getCars(): string
+    public function getCars(): void
     {
-        $html = '';
 
         $carsService = new CarsService();
-        $cars = $carsService->getCars();
+        $_cars = $carsService->getCars();
 
-        foreach ($cars as $car) {
-            $html .=
-                '#' . $car->getId() . ' ' .
-                $car->getMarque() . ' ' .
-                $car->getModele() . ' ' .
-                $car->getCouleur() . ' ' .
-                $car->getCirculation()->format('d-m-Y') . '<br />';
-        }
+        require('views/car/car_read.php');
 
-        return $html;
     }
 
-    public function updateCar(): string
+    public function updateCar(): void
     {
-        $html = '';
+        $result_update = '';
         if (isset($_POST['id']) &&
            isset($_POST['marque']) &&
            isset($_POST['couleur']) &&
@@ -70,29 +63,31 @@ class CarsController
                 $_POST['modele']
             );
             if ($isOk) {
-                $html = 'Voiture mise à jour avec succès.';
+                $result_update = 'Voiture mise à jour avec succès.';
             } else {
-                $html = 'Erreur lors de la mise à jour de la voiture.';
+                $result_update = 'Erreur lors de la mise à jour de la voiture.';
             }
         }
 
-        return $html;
+        require('views/car/car_update.php');
+
     }
 
-    public function deleteCar(): string
+    public function deleteCar(): void
     {
-        $html = '';
+        $result_delete = '';
 
         if (isset($_POST['id'])) {
             $carsService = new CarsService();
             $isOk = $carsService->deleteCar($_POST['id']);
             if ($isOk) {
-                $html = 'Voiture supprimée avec succès.';
+                $result_delete = 'Voiture supprimée avec succès.';
             } else {
-                $html = 'Erreur lors de la supression de la voiture.';
+                $result_delete = 'Erreur lors de la supression de la voiture.';
             }
         }
 
-        return $html;
+        require('views/car/car_delete.php');
+
     }
 }
