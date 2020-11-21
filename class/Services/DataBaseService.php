@@ -33,9 +33,9 @@ class DataBaseService
     /**
      * Create an user.
      */
-    public function createUser(string $firstname, string $lastname, string $email, DateTime $birthday): bool
+    public function createUser(string $firstname, string $lastname, string $email, DateTime $birthday): string
     {
-        $isOk = false;
+        $userId = '';
 
         $data = [
             'firstname' => $firstname,
@@ -46,8 +46,11 @@ class DataBaseService
         $sql = 'INSERT INTO users (firstname, lastname, email, birthday) VALUES (:firstname, :lastname, :email, :birthday)';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
+        if ($isOk) {
+            $userId = $this->connection->lastInsertId();
+        }
 
-        return $isOk;
+        return $userId;
     }
 
     /**
@@ -93,7 +96,7 @@ class DataBaseService
      */
     public function deleteUser(string $id): bool
     {
-        $isOk = false;
+        $result = false;
         $data = [
             'id' => $id,
         ];
@@ -101,7 +104,12 @@ class DataBaseService
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
-        return $isOk;
+        /* Delete relations with user after its deletion */
+        if($isOk) {
+            $result = $this->deleteUserCars($id);
+        }
+
+        return $result;
     }
 
     /**
@@ -162,7 +170,7 @@ class DataBaseService
 
         return $result;
     }
-    /** 
+    /**
      * Supprimer une voiture
      */
     public function deleteCar(int $id): bool
@@ -180,43 +188,44 @@ class DataBaseService
     /**
      * Créer une réservations
      */
-    public function createReservation(string $utilisateur, DateTime $date_depart, string $lieu_depart, string $lieu_arrivee): bool
+    public function createReservation(DateTime $date_depart, string $lieu_depart, string $lieu_arrivee): string
     {
-        $result = false;
+        $reservationId = '';
 
         $data = [
-            'utilisateur' => $utilisateur,
             'date_depart' => $date_depart->format('Y-m-d H:i:s'),
             'lieu_depart' => $lieu_depart,
             'lieu_arrivee' => $lieu_arrivee,
         ];
-        $sql = 'INSERT INTO reservations (utilisateur, date_depart, lieu_depart, lieu_arrivee) VALUES (:utilisateur, :date_depart, :lieu_depart, :lieu_arrivee)';
+        $sql = 'INSERT INTO reservations (date_depart, lieu_depart, lieu_arrivee) VALUES (:date_depart, :lieu_depart, :lieu_arrivee)';
         $query = $this->connection->prepare($sql);
-        $result = $query->execute($data);
+        $isOk = $query->execute($data);
+        if ($isOk) {
+            $reservationId = $this->connection->lastInsertId();
+        }
 
-        return $result;
+        return $reservationId;
     }
-    /** 
+    /**
      * Mettre à jour une réservation
      */
-    public function updateReservation(int $id, string $utilisateur, DateTime $date_depart, string $lieu_depart, string $lieu_arrivee): bool
+    public function updateReservation(int $id, DateTime $date_depart, string $lieu_depart, string $lieu_arrivee): bool
     {
         $result = false;
 
         $data = [
             'id' => $id,
-            'utilisateur' => $utilisateur,
             'date_depart' => $date_depart->format('Y-m-d H:i:s'),
             'lieu_depart' => $lieu_depart,
             'lieu_arrivee' => $lieu_arrivee,
         ];
-        $sql = 'UPDATE reservations SET utilisateur = :utilisateur, date_depart = :date_depart, lieu_depart = :lieu_depart, lieu_arrivee = :lieu_arrivee WHERE id = :id;';
+        $sql = 'UPDATE reservations SET date_depart = :date_depart, lieu_depart = :lieu_depart, lieu_arrivee = :lieu_arrivee WHERE id = :id;';
         $query = $this->connection->prepare($sql);
         $result = $query->execute($data);
 
         return $result;
     }
-    /** 
+    /**
      * Récupérer toutes les réservations
      */
     public function getReservations(): array
@@ -232,7 +241,7 @@ class DataBaseService
 
         return $_reservations;
     }
-    /** 
+    /**
      * Supprimer une réservation
      */
     public function deleteReservation(int $id): bool
@@ -251,9 +260,9 @@ class DataBaseService
     /**
      * Créer une réservations
      */
-    public function createAnnonce(string $lieu_depart, string $lieu_arrivee, DateTime $date_depart, DateTime $date_arrivee): bool
+    public function createAnnonce(string $lieu_depart, string $lieu_arrivee, DateTime $date_depart, DateTime $date_arrivee): string
     {
-        $result = false;
+        $annonceId = '';
 
         $data = [
             'lieu_depart' => $lieu_depart,
@@ -263,11 +272,13 @@ class DataBaseService
         ];
         $sql = 'INSERT INTO annonces (lieu_depart, lieu_arrivee, date_depart, date_arrivee) VALUES (:lieu_depart, :lieu_arrivee, :date_depart, :date_arrivee)';
         $query = $this->connection->prepare($sql);
-        $result = $query->execute($data);
-
-        return $result;
+        $isOk = $query->execute($data);
+        if($isOk) {
+            $annonceId = $this->connection->lastInsertId();
+        }
+        return $annonceId;
     }
-    /** 
+    /**
      * Mettre à jour une annonce
      */
     public function updateAnnonce(int $id, string $lieu_depart, string $lieu_arrivee, DateTime $date_depart, DateTime $date_arrivee): bool
@@ -287,7 +298,7 @@ class DataBaseService
 
         return $result;
     }
-    /** 
+    /**
      * Récupérer toutes les annonces
      */
     public function getAnnonces(): array
@@ -303,7 +314,7 @@ class DataBaseService
 
         return $_annonces;
     }
-    /** 
+    /**
      * Supprimer une annonce
      */
     public function deleteAnnonce(int $id): bool
@@ -338,7 +349,7 @@ class DataBaseService
 
         return $result;
     }
-    /** 
+    /**
      * Mettre à jour un commentaire
      */
     public function updateComment(int $id, string $titre, string $contenu, int $utilisateur, DateTime $date_ecriture): bool
@@ -358,7 +369,7 @@ class DataBaseService
 
         return $result;
     }
-    /** 
+    /**
      * Récupérer tous les commentaires
      */
     public function getComments(): array
@@ -374,7 +385,7 @@ class DataBaseService
 
         return $_annonces;
     }
-    /** 
+    /**
      * Supprimer un commentaire
      */
     public function deleteComment(int $id): bool
@@ -388,5 +399,194 @@ class DataBaseService
         $result = $query->execute($data);
 
         return $result;
+    }
+    /**
+    * Create relation bewteen an user and his car.
+    */
+    public function setUserCar(string $userId, string $carId): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'userId' => $userId,
+            'carId' => $carId,
+        ];
+        $sql = 'INSERT INTO users_cars (user_id, car_id) VALUES (:userId, :carId)';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    /**
+     * Get cars of given user id.
+     */
+    public function getUserCars(string $userId): array
+    {
+        $_userCars = array();
+
+        $data = [
+            'userId' => $userId,
+        ];
+        $sql = '
+            SELECT c.*
+            FROM cars as c
+            LEFT JOIN users_cars as uc ON uc.car_id = c.id
+            WHERE uc.user_id = :userId';
+        $query = $this->connection->prepare($sql);
+        $query->execute($data);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $_userCars = $results;
+        }
+
+        return $_userCars;
+    }
+    
+    public function deleteUserCars(string $userId): bool
+    {
+        $result = false;
+
+        $data = [
+            'userId' => $userId,
+        ];
+        $sql = 'DELETE FROM users_cars WHERE user_id = :userId';
+        $query = $this->connection->prepare($sql);
+        $result = $query->execute($data);
+
+        return $result;
+    }
+
+    public function getUserAnnonces(string $userId): array
+    {
+        $_userAnnonces = array();
+
+        $data = [
+            'userId' => $userId,
+        ];
+        $sql = '
+            SELECT a.*
+            FROM annonces as a
+            LEFT JOIN users_annonces as ua ON ua.annonce_id = a.id
+            WHERE ua.user_id = :userId';
+        $query = $this->connection->prepare($sql);
+        $query->execute($data);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $_userAnnonces = $results;
+        }
+
+        return $_userAnnonces;
+    }
+
+    public function getUserReservations(string $userId): array
+    {
+        $_userReservations = array();
+
+        $data = [
+            'userId' => $userId,
+        ];
+        $sql = '
+            SELECT r.*
+            FROM reservations as r
+            LEFT JOIN users_reservations as ur ON ur.reservation_id = r.id
+            WHERE ur.user_id = :userId';
+        $query = $this->connection->prepare($sql);
+        $query->execute($data);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $_userReservations = $results;
+        }
+
+        return $_userReservations;
+    }
+
+    public function setAnnonceUsers(string $annonceId, string $userId): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'userId' => $userId,
+            'annonceId' => $annonceId,
+        ];
+        $sql = 'INSERT INTO users_annonces (user_id, annonce_id) VALUES (:userId, :annonceId)';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    public function getAnnonceUsers(string $annonceId): array
+    {
+        $_annonceUsers = array();
+
+        $data = [
+            'annonceId' => $annonceId,
+        ];
+        $sql = '
+            SELECT u.*
+            FROM users as u
+            LEFT JOIN users_annonces as ua ON ua.user_id = u.id
+            WHERE ua.annonce_id = :annonceId';
+
+        $query = $this->connection->prepare($sql);
+        $query->execute($data);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $_annonceUsers = $results;
+        }
+
+        return $_annonceUsers;
+    }
+    public function deleteAnnonceUser(string $annonceId): bool
+    {
+        $result = false;
+
+        $data = [
+            'annonceId' => $annonceId,
+        ];
+        $sql = 'DELETE FROM users_annonces WHERE annonce_id = :annonceId';
+        $query = $this->connection->prepare($sql);
+        $result = $query->execute($data);
+
+        return $result;
+    }
+
+    public function setReservationUsers(string $reservationId, string $userId): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'userId' => $userId,
+            'reservationId' => $reservationId,
+        ];
+        $sql = 'INSERT INTO users_reservations (user_id, reservation_id) VALUES (:userId, :reservationId)';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    public function getReservationUsers(string $reservationId): array
+    {
+        $_reservationUsers = array();
+
+        $data = [
+            'reservationId' => $reservationId,
+        ];
+        $sql = '
+            SELECT u.*
+            FROM users as u
+            LEFT JOIN users_reservations as ur ON ur.user_id = u.id
+            WHERE ur.reservation_id = :reservationId';
+
+        $query = $this->connection->prepare($sql);
+        $query->execute($data);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $_reservationUsers = $results;
+        }
+
+        return $_reservationUsers;
     }
 }

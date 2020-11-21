@@ -15,13 +15,13 @@
     </div>
     <div class="form-row">
         <label for="birthday">Date de naissance</label>
-        <input name="birthday" type="text">
+        <input name="birthday" type="date">
     </div>
     <div class="form-row">
-        <label>Voitures</label>
+        <span>Voitures</span>
         <?php
             foreach($_cars as $car):
-                echo '<input type="checkbox" name="cars[]" value="' . $car->getId() . '" />' . $car->getModele();
+                echo '<div class="choice-group"><label><input type="checkbox" name="cars[]" value="' . $car->getId() . '" />' . $car->getModele() . '</label></div>';
             endforeach;
         ?>
     </div>

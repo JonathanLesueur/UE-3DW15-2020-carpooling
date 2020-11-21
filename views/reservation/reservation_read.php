@@ -5,6 +5,7 @@
             <th>ID</th>
             <th>Départ</th>
             <th>Arrivée</th>
+            <th>Utilisateur</th>
         </tr>
     </thead>
     <tbody>
@@ -13,6 +14,11 @@
                 <td><?= $reservation->getId() ?></td>
                 <td><?= $reservation->getLieuDepart() . ' le ' . $reservation->getDateDepart()->format('d/m/Y') ?></td>
                 <td><?= $reservation->getLieuArrivee() ?></td>
+                <td>
+                    <?php foreach($reservation->getUtilisateurs() as $utilisateur): ?>
+                        <?= $utilisateur->getFirstName() . ' ' . $utilisateur->getLastName() ?>
+                    <?php endforeach; ?>
+                </td>
             </tr>
         <?php endforeach; ?>
     </tbody>

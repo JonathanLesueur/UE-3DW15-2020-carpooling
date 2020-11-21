@@ -19,7 +19,15 @@
     </div>
     <div class="form-row">
         <label for="birthday">Date de naissance</label>
-        <input name="birthday" type="text">
+        <input name="birthday" type="date">
+    </div>
+    <div class="form-row">
+        <span>Voitures</span>       
+        <?php
+            foreach($_cars as $car):
+                echo '<div class="choice-group"><input type="checkbox" name="cars[]" value="' . $car->getId() . '" />' . $car->getModele() . '</div>';
+            endforeach;
+        ?>
     </div>
     <div class="form-row">
         <input name="submit" type="submit" value="Créer un utilisateur">

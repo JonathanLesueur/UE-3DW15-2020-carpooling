@@ -18,16 +18,24 @@ class UsersController
         if (isset($_POST['firstname']) &&
             isset($_POST['lastname']) &&
             isset($_POST['email']) &&
-            isset($_POST['birthday'])) {
+            isset($_POST['birthday']) &&
+            isset($_POST['cars'])) {
             // Create the user :
             $usersService = new UsersService();
-            $isOk = $usersService->setUser(
+            $userId = $usersService->setUser(
                 null,
                 $_POST['firstname'],
                 $_POST['lastname'],
                 $_POST['email'],
-                $_POST['birthday']
+                $_POST['birthday'],
+                $_POST['cars']
             );
+            $isOk = true;
+            if (!empty($_POST['cars'])) {
+                foreach ($_POST['cars'] as $carId) {
+                    $isOk = $usersService->setUserCar($userId, $carId);
+                }
+            }
             if ($isOk) {
                 $insert_result = 'Utilisateur créé avec succès.';
             } else {
@@ -67,7 +75,8 @@ class UsersController
             isset($_POST['firstname']) &&
             isset($_POST['lastname']) &&
             isset($_POST['email']) &&
-            isset($_POST['birthday'])) {
+            isset($_POST['birthday']) &&
+            isset($_POST['cars'])) {
             // Update the user :
             $usersService = new UsersService();
             $isOk = $usersService->setUser(
@@ -75,7 +84,8 @@ class UsersController
                 $_POST['firstname'],
                 $_POST['lastname'],
                 $_POST['email'],
-                $_POST['birthday']
+                $_POST['birthday'],
+                $_POST['cars']
             );
             if ($isOk) {
                 $update_result = 'Utilisateur mis à jour avec succès.';
@@ -83,6 +93,9 @@ class UsersController
                 $update_result = 'Erreur lors de la mise à jour de l\'utilisateur.';
             }
         }
+
+        $carsService = new CarsService();
+        $_cars = $carsService->getCars();
 
         require 'views/user/user_update.php';
     }

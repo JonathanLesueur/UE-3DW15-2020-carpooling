@@ -13,6 +13,7 @@ class Annonce
     private $date_arrivee;
 
     /* Préparation pour la suite */
+    private $utilisateurs;
     private $voiture;
     private $commentaires;
     private $reservations;
@@ -159,5 +160,15 @@ class Annonce
     public function setReservations(array $reservations): void
     {
         $this->reservations = $reservations;
+    }
+
+    public function setUtilisateurs(array $utilisateurs): void
+    {
+        $this->utilisateurs = $utilisateurs;
+    }
+
+    public function getUtilisateurs(): array
+    {
+        return $this->utilisateurs;
     }
 }
