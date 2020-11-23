@@ -10,6 +10,8 @@ class Reservation
     private $date_depart;
     private $lieu_depart;
     private $lieu_arrivee;
+    private $annonces;
+    private $utilisateurs;
 
     /**
      * Get the value of id
@@ -91,5 +93,23 @@ class Reservation
     public function getUtilisateurs(): array
     {
         return $this->utilisateurs;
+    }
+
+    /**
+     * Get the value of annonces
+     */ 
+    public function getAnnonces(): array
+    {
+        return $this->annonces;
+    }
+
+    /**
+     * Set the value of annonces
+     *
+     * @return  self
+     */ 
+    public function setAnnonces(array $annonces)
+    {
+        $this->annonces = $annonces;
     }
 }

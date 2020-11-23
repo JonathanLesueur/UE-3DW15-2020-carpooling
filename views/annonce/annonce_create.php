@@ -1,4 +1,4 @@
-<p>Création d'une annonce</p>
+<h1>Création d'une annonce</h1>
 <?= $result_create ?>
 <form method="post" action="annonces.php?action=create" name="annonceCreateForm">
     <div class="form-row">
@@ -22,6 +22,14 @@
         <?php 
             foreach($_users as $user):
                 echo '<div class="choice-group"><label><input type="radio" name="utilisateur" value="' . $user->getId() . '" />' . $user->getFirstName() . ' ' . $user->getLastName() . '</label></div>';
+            endforeach; 
+        ?>
+    </div>
+    <div class="form-row">
+        Voiture
+        <?php 
+            foreach($_cars as $car):
+                echo '<div class="choice-group"><label><input type="radio" name="car" value="' . $car->getId() . '" />' . $car->getMarque() . ' ' . $car->getModele() . '</label></div>';
             endforeach; 
         ?>
     </div>

@@ -11,6 +11,7 @@ class Comment
     private $contenu;
     private $utilisateur;
     private $date_ecriture;
+    private $annonce;
     
 
     /**
@@ -70,7 +71,7 @@ class Comment
     /**
      * Get the value of utilisateur
      */
-    public function getUtilisateur(): string
+    public function getUtilisateur(): array
     {
         return $this->utilisateur;
     }
@@ -80,7 +81,7 @@ class Comment
      *
      * @return  self
      */
-    public function setUtilisateur(string $utilisateur): void
+    public function setUtilisateur(array $utilisateur): void
     {
         $this->utilisateur = $utilisateur;
     }
@@ -101,5 +102,23 @@ class Comment
     public function setDateEcriture(DateTime $date_ecriture): void
     {
         $this->date_ecriture = $date_ecriture;
+    }
+
+    /**
+     * Get the value of annonce
+     */ 
+    public function getAnnonce(): array
+    {
+        return $this->annonce;
+    }
+
+    /**
+     * Set the value of annonce
+     *
+     * @return  self
+     */ 
+    public function setAnnonce(array $annonce): void
+    {
+        $this->annonce = $annonce;
     }
 }

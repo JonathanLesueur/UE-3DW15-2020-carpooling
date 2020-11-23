@@ -1,5 +1,5 @@
 <h1>Mise à jour d'un commentaire</h1>
-<?= $resulr_update ?>
+<?= $result_update ?>
 <form method="post" action="comments.php?action=update" name="commentUpdateForm">
     <div class="form-row">
         <label for="id">Id</label>
@@ -14,8 +14,20 @@
         <input name="contenu" type="text">
     </div>
     <div class="form-row">
-        <label for="utilisateur">Utilisateur</label>
-        <input name="utilisateur" type="text">
+        Utilisateur
+        <?php 
+            foreach($_users as $user):
+                echo '<div class="choice-group"><label><input type="radio" name="utilisateur" value="' . $user->getId() . '" />' . $user->getFirstName() . ' ' . $user->getLastName() . '</label></div>';
+            endforeach; 
+        ?>
+    </div>
+    <div class="form-row">
+        Annonce
+        <?php 
+            foreach($_annonces as $annonce):
+                echo '<div class="choice-group"><label><input type="radio" name="annonce" value="' . $annonce->getId() . '" />de ' . $annonce->getLieuDepart() . ' à ' . $annonce->getLieuArrivee() . '</label></div>';
+            endforeach; 
+        ?>
     </div>
     <div class="form-row">
         <input name="submit" type="submit" value="Modifier le commentaire">

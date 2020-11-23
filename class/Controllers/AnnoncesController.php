@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Services\AnnoncesService;
 use App\Services\UsersService;
+use App\Services\CarsService;
 
 class AnnoncesController
 {
@@ -14,7 +15,8 @@ class AnnoncesController
             isset($_POST['lieu_arrivee']) &&
             isset($_POST['date_depart']) &&
             isset($_POST['date_arrivee']) &&
-            isset($_POST['utilisateur'])) {
+            isset($_POST['utilisateur']) &&
+            isset($_POST['car'])) {
 
             $annoncesService = new AnnoncesService();
             $annonceId = $annoncesService->setAnnonce(
@@ -22,13 +24,15 @@ class AnnoncesController
                 $_POST['lieu_depart'],
                 $_POST['lieu_arrivee'],
                 $_POST['date_depart'],
-                $_POST['date_arrivee'],
-                $_POST['utilisateur']
+                $_POST['date_arrivee']
             );
 
             $isOk = true;
             if(!empty($_POST['utilisateur'])) {
                 $isOk = $annoncesService->setAnnonceUsers($annonceId, $_POST['utilisateur']);
+            }
+            if(!empty($_POST['car'])) {
+                $isOk = $annoncesService->setAnnonceCars($annonceId, $_POST['car']);
             }
             if ($isOk) {
                 $result_create = 'Annonce enregistrée avec succès.';
@@ -39,6 +43,9 @@ class AnnoncesController
 
         $usersService = new UsersService();
         $_users = $usersService->getUsers();
+
+        $casrService = new CarsService();
+        $_cars = $casrService->getCars();
 
         require('views/annonce/annonce_create.php');
 
@@ -62,7 +69,8 @@ class AnnoncesController
             isset($_POST['lieu_arrivee']) &&
             isset($_POST['date_depart']) &&
             isset($_POST['date_arrivee']) &&
-            isset($_POST['utilisateur'])) {
+            isset($_POST['utilisateur']) &&
+            isset($_POST['car'])) {
 
             $annoncesService = new AnnoncesService();
             $isOk = $annoncesService->setAnnonce(
@@ -70,8 +78,7 @@ class AnnoncesController
                 $_POST['lieu_depart'],
                 $_POST['lieu_arrivee'],
                 $_POST['date_depart'],
-                $_POST['date_arrivee'],
-                $_POST['utilisateur']
+                $_POST['date_arrivee']
             );
             if ($isOk) {
                 $result_update = 'Annonce mise à jour avec succès.';
@@ -82,6 +89,9 @@ class AnnoncesController
 
         $usersService = new UsersService();
         $_users = $usersService->getUsers();
+
+        $casrService = new CarsService();
+        $_cars = $casrService->getCars();
 
         require('views/annonce/annonce_update.php');
 

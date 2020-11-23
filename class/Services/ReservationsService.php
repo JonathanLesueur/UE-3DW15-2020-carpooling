@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Entities\Reservation;
 use App\Entities\User;
+use App\Entities\Annonce;
+
 use DateTime;
 
 class ReservationsService
@@ -93,5 +95,45 @@ class ReservationsService
             
         }
         return $_users;
+    }
+
+    public function setReservationAnnonces(string $reservationId, string $annonceId): bool
+    {
+        $isOk = false;
+
+        $dataBaseService = new DataBaseService();
+        $isOk = $dataBaseService->setReservationAnnonces($reservationId, $annonceId);
+
+        return $isOk;
+    }
+
+    public function getReservationAnnonces(string $reservationId): array
+    {
+        $_annonces = array();
+
+        $dataBaseService = new DataBaseService();
+        $annoncesDTO = $dataBaseService->getReservationAnnonces($reservationId);
+        if(!empty($annoncesDTO)) {
+            foreach($annoncesDTO as $annoncesDTO) {
+                $annonce = new Annonce();
+                $annonce->setId($annoncesDTO['id']);
+                $annonce->setLieuDepart($annoncesDTO['lieu_depart']);
+                $annonce->setLieuArrivee($annoncesDTO['lieu_arrivee']);
+
+                $dateDepart = new DateTime($annoncesDTO['date_depart']);
+                if($dateDepart) {
+                    $annonce->setDateDepart($dateDepart);
+                }
+
+                $dateArrivee = new DateTime($annoncesDTO['date_arrivee']);
+                if($dateArrivee) {
+                    $annonce->setDateDepart($dateArrivee);
+                }
+
+                $_annonces[] = $annonce;
+            }
+            
+        }
+        return $_annonces;
     }
 }

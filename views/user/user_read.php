@@ -15,7 +15,7 @@
         <?php foreach($_users as $user) : ?>
         <tr>
             <td><?= $user->getId() ?></td>
-            <td><?= $user->getFirstname() . $user->getLastname() ?></td>
+            <td><?= $user->getFirstname() . ' ' . $user->getLastname() ?></td>
             <td><?= $user->getEmail() ?></td>
             <td><?= $user->getBirthday()->format('d/m/Y') ?></td>
             <td>

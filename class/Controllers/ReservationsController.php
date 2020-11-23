@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Services\ReservationsService;
 use App\Services\UsersService;
+use App\Services\AnnoncesService;
 
 class ReservationsController
 {
@@ -27,6 +28,10 @@ class ReservationsController
             if(!empty($_POST['utilisateur'])) {
                 $isOk = $reservationsService->setReservationUsers($reservationId, $_POST['utilisateur']);
             }
+
+            if(!empty($_POST['annonce'])) {
+                $isOk = $reservationsService->setReservationAnnonces($reservationId, $_POST['annonce']);
+            }
             if ($isOk) {
                 $result_create = 'Réservation enregistrée avec succès.';
             } else {
@@ -36,6 +41,9 @@ class ReservationsController
 
         $usersService = new UsersService();
         $_users = $usersService->getUsers();
+
+        $annoncesService = new AnnoncesService();
+        $_annonces = $annoncesService->getAnnonces();
 
         require 'views/reservation/reservation_create.php';
     }
@@ -60,12 +68,22 @@ class ReservationsController
             isset($_POST['lieu_arrivee'])) {
 
             $reservationsService = new ReservationsService();
-            $isOk = $reservationsService->setReservation(
+            $reservationId = $reservationsService->setReservation(
                 $_POST['id'],
                 $_POST['date_depart'],
                 $_POST['lieu_depart'],
                 $_POST['lieu_arrivee']
             );
+
+            $isOk = true;
+            if(!empty($_POST['utilisateur'])) {
+                $isOk = $reservationsService->setReservationUsers($reservationId, $_POST['utilisateur']);
+            }
+
+            if(!empty($_POST['annonce'])) {
+                $isOk = $reservationsService->setReservationAnnonces($reservationId, $_POST['annonce']);
+            }
+
             if ($isOk) {
                 $result_update = 'Réservation mise à jour avec succès.';
             } else {
@@ -75,6 +93,9 @@ class ReservationsController
 
         $usersService = new UsersService();
         $_users = $usersService->getUsers();
+
+        $annoncesService = new AnnoncesService();
+        $_annonces = $annoncesService->getAnnonces();
         
         require 'views/reservation/reservation_update.php';
     }
