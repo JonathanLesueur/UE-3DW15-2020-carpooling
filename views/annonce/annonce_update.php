@@ -30,6 +30,14 @@
         ?>
     </div>
     <div class="form-row">
+        Voiture
+        <?php 
+            foreach($_cars as $car):
+                echo '<div class="choice-group"><label><input type="radio" name="car" value="' . $car->getId() . '" />' . $car->getMarque() . ' ' . $car->getModele() . '</label></div>';
+            endforeach; 
+        ?>
+    </div>
+    <div class="form-row">
         <input name="submit" type="submit" value="Modifier l'annonce">
     </div>
 </form>

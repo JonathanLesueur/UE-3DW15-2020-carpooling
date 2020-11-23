@@ -105,7 +105,7 @@ class DataBaseService
         $isOk = $query->execute($data);
 
         /* Delete relations with user after its deletion */
-        if($isOk) {
+        if ($isOk) {
             $result = $this->deleteUserCars($id);
         }
 
@@ -273,7 +273,7 @@ class DataBaseService
         $sql = 'INSERT INTO annonces (lieu_depart, lieu_arrivee, date_depart, date_arrivee) VALUES (:lieu_depart, :lieu_arrivee, :date_depart, :date_arrivee)';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
-        if($isOk) {
+        if ($isOk) {
             $annonceId = $this->connection->lastInsertId();
         }
         return $annonceId;
@@ -333,26 +333,29 @@ class DataBaseService
     /**
      * Créer un commentaire
      */
-    public function createComment(string $titre, string $contenu, int $utilisateur, DateTime $date_ecriture): bool
+    public function createComment(string $titre, string $contenu, DateTime $date_ecriture): string
     {
-        $result = false;
+        $commentId = '';
 
         $data = [
             'titre' => $titre,
             'contenu' => $contenu,
-            'utilisateur' => $utilisateur,
             'date_ecriture' => $date_ecriture->format('Y-m-d H:i:s'),
         ];
-        $sql = 'INSERT INTO comments (titre, contenu, utilisateur, date_ecriture) VALUES (:titre, :contenu, :utilisateur, :date_ecriture)';
+        $sql = 'INSERT INTO comments (titre, contenu, date_ecriture) VALUES (:titre, :contenu, :date_ecriture)';
         $query = $this->connection->prepare($sql);
-        $result = $query->execute($data);
+        $isOk = $query->execute($data);
 
-        return $result;
+        if ($isOk) {
+            $commentId = $this->connection->lastInsertId();
+        }
+
+        return $commentId;
     }
     /**
      * Mettre à jour un commentaire
      */
-    public function updateComment(int $id, string $titre, string $contenu, int $utilisateur, DateTime $date_ecriture): bool
+    public function updateComment(int $id, string $titre, string $contenu, DateTime $date_ecriture): bool
     {
         $result = false;
 
@@ -360,10 +363,9 @@ class DataBaseService
             'id' => $id,
             'titre' => $titre,
             'contenu' => $contenu,
-            'utilisateur' => $utilisateur,
             'date_ecriture' => $date_ecriture->format('Y-m-d H:i:s'),
         ];
-        $sql = 'UPDATE comments SET titre = :titre, contenu = :contenu, utilisateur = :utilisateur, date_ecriture = :date_ecriture WHERE id = :id;';
+        $sql = 'UPDATE comments SET titre = :titre, contenu = :contenu, date_ecriture = :date_ecriture WHERE id = :id;';
         $query = $this->connection->prepare($sql);
         $result = $query->execute($data);
 
@@ -538,6 +540,91 @@ class DataBaseService
 
         return $_annonceUsers;
     }
+
+    public function setAnnonceCars(string $annonceId, string $carId): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'carId' => $carId,
+            'annonceId' => $annonceId,
+        ];
+        $sql = 'INSERT INTO annonces_cars (annonce_id, car_id) VALUES (:annonceId, :carId)';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    public function getAnnonceCars(string $annonceId): array
+    {
+        $_annonceCars = array();
+
+        $data = [
+            'annonceId' => $annonceId,
+        ];
+        $sql = '
+            SELECT c.*
+            FROM cars as c
+            LEFT JOIN annonces_cars as ac ON ac.car_id = c.id
+            WHERE ac.annonce_id = :annonceId';
+
+        $query = $this->connection->prepare($sql);
+        $query->execute($data);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $_annonceCars = $results;
+        }
+
+        return $_annonceCars;
+    }
+
+    public function getAnnonceReservations(string $annonceId): array
+    {
+        $_annonceReservations = array();
+
+        $data = [
+            'annonceId' => $annonceId,
+        ];
+        $sql = '
+            SELECT r.*
+            FROM reservations as r
+            LEFT JOIN annonces_reservations as ar ON ar.reservation_id = r.id
+            WHERE ar.annonce_id = :annonceId';
+
+        $query = $this->connection->prepare($sql);
+        $query->execute($data);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $_annonceReservations = $results;
+        }
+
+        return $_annonceReservations;
+    }
+
+
+    public function getAnnonceComments(string $annonceId): array
+    {
+        $_annonceComments = array();
+
+        $data = [
+            'annonceId' => $annonceId,
+        ];
+        $sql = '
+            SELECT c.*
+            FROM comments as c
+            LEFT JOIN annonces_comments as ac ON ac.comment_id = c.id
+            WHERE ac.annonce_id = :annonceId';
+
+        $query = $this->connection->prepare($sql);
+        $query->execute($data);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $_annonceComments = $results;
+        }
+
+        return $_annonceComments;
+    }
     public function deleteAnnonceUser(string $annonceId): bool
     {
         $result = false;
@@ -588,5 +675,119 @@ class DataBaseService
         }
 
         return $_reservationUsers;
+    }
+
+    public function setReservationAnnonces(string $reservationId, string $annonceId): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'annonceId' => $annonceId,
+            'reservationId' => $reservationId,
+        ];
+        $sql = 'INSERT INTO annonces_reservations (annonce_id, reservation_id) VALUES (:annonceId, :reservationId)';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    public function getReservationAnnonces(string $reservationId): array
+    {
+        $_reservationAnnonces = array();
+
+        $data = [
+            'reservationId' => $reservationId,
+        ];
+        $sql = '
+            SELECT a.*
+            FROM annonces as a
+            LEFT JOIN annonces_reservations as ar ON ar.annonce_id = a.id
+            WHERE ar.reservation_id = :reservationId';
+
+        $query = $this->connection->prepare($sql);
+        $query->execute($data);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $_reservationAnnonces = $results;
+        }
+
+        return $_reservationAnnonces;
+    }
+
+    public function setCommentUser(string $commentId, string $userId): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'userId' => $userId,
+            'commentId' => $commentId,
+        ];
+        $sql = 'INSERT INTO users_comments (user_id, comment_id) VALUES (:userId, :commentId)';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    public function getCommentUser(string $commentId): array
+    {
+        $_users = array();
+        
+        $data = [
+            'commentId' => $commentId,
+        ];
+        $sql = '
+            SELECT u.*
+            FROM users as u
+            LEFT JOIN users_comments as uc ON uc.user_id = u.id
+            WHERE uc.comment_id = :commentId';
+
+        $query = $this->connection->prepare($sql);
+        $query->execute($data);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $_users = $results;
+        }
+
+        return $_users;
+    }
+
+    public function setCommentAnnonce(string $commentId, string $annonceId): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'commentId' => $commentId,
+            'annonceId' => $annonceId,
+        ];
+        $sql = 'INSERT INTO annonces_comments (annonce_id, comment_id) VALUES (:annonceId, :commentId)';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    public function getCommentAnnonce(string $commentId): array
+    {
+        $_annonces = array();
+        
+        $data = [
+            'commentId' => $commentId,
+        ];
+        $sql = '
+            SELECT a.*
+            FROM annonces as a
+            LEFT JOIN annonces_comments as ac ON ac.annonce_id = a.id
+            WHERE ac.comment_id = :commentId';
+
+        $query = $this->connection->prepare($sql);
+        $query->execute($data);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $_annonces = $results;
+        }
+
+        return $_annonces;
     }
 }

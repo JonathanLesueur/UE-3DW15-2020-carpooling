@@ -161,7 +161,6 @@ table td {
     max-width: 250px;
     padding: 10px;
     vertical-align: middle;
-    text-align: center;
 }
 
 table tr td {
@@ -174,4 +173,22 @@ table tr td:first-of-type {
 
 table tr {
     border-bottom: 1px dashed #e4e4e4;
+}
+
+.comment-line {
+    padding: 5px;
+}
+.comment-line:not(:last-of-type) {
+    border-bottom: 1px dashed #000;
+}
+.comment-line > * {
+    line-height: 15px;
+    font-size: 15px;
+}
+
+.comment-title {
+    font-weight: 700;
+    text-align: left;
+    font-size: 17px;
+    text-transform: uppercase;
 }

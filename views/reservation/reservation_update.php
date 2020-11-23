@@ -26,6 +26,14 @@
         ?>
     </div>
     <div class="form-row">
+        Annonce
+        <?php 
+            foreach($_annonces as $annonce):
+                echo '<div class="choice-group"><label><input type="radio" name="annonce" value="' . $annonce->getId() . '" />' . $annonce->getLieuDepart() . ' ' . $annonce->getLieuArrivee() . '</label></div>';
+            endforeach; 
+        ?>
+    </div>
+    <div class="form-row">
         <input name="submit" type="submit" value="Modifier la réservation">
     </div>
 </form>

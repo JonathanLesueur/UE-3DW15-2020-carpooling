@@ -6,6 +6,7 @@
             <th>Titre</th>
             <th>Contenu</th>
             <th>Date d'écriture</th>
+            <th>Utilisateur</th>
         </tr>
     </thead>
     <tbody>
@@ -15,6 +16,10 @@
                 <td><?= $comment->getTitre() ?></td>
                 <td><?= $comment->getContenu() ?></td>
                 <td><?= $comment->getDateEcriture()->format('d/m/Y') ?></td>
+                <?php if(count($comment->getUtilisateur())): ?>
+                    <td><?= $comment->getUtilisateur()[0]->getFirstName() . ' ' . $comment->getUtilisateur()[0]->getLastName() ?></td>
+                <?php endif; ?>
+                
             </tr>
         <?php endforeach; ?>
     </tbody>

@@ -27,8 +27,7 @@ class UsersController
                 $_POST['firstname'],
                 $_POST['lastname'],
                 $_POST['email'],
-                $_POST['birthday'],
-                $_POST['cars']
+                $_POST['birthday']
             );
             $isOk = true;
             if (!empty($_POST['cars'])) {
@@ -84,8 +83,7 @@ class UsersController
                 $_POST['firstname'],
                 $_POST['lastname'],
                 $_POST['email'],
-                $_POST['birthday'],
-                $_POST['cars']
+                $_POST['birthday']
             );
             if ($isOk) {
                 $update_result = 'Utilisateur mis à jour avec succès.';

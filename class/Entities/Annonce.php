@@ -110,8 +110,8 @@ class Annonce
 
     /**
      * Get the value of voiture
-     */ 
-    public function getVoiture()
+     */
+    public function getVoitures(): array
     {
         return $this->voiture;
     }
@@ -120,15 +120,15 @@ class Annonce
      * Set the value of voiture
      *
      * @return  self
-     */ 
-    public function setVoiture(Car $voiture): void
+     */
+    public function setVoitures(array $voiture): void
     {
         $this->voiture = $voiture;
     }
 
     /**
      * Get the value of commentaires
-     */ 
+     */
     public function getCommentaires(): array
     {
         return $this->commentaires;
@@ -138,7 +138,7 @@ class Annonce
      * Set the value of commentaires
      *
      * @return  self
-     */ 
+     */
     public function setCommentaires(array $commentaires): void
     {
         $this->commentaires = $commentaires;
@@ -146,7 +146,7 @@ class Annonce
 
     /**
      * Get the value of reservations
-     */ 
+     */
     public function getReservations(): array
     {
         return $this->reservations;
@@ -156,7 +156,7 @@ class Annonce
      * Set the value of reservations
      *
      * @return  self
-     */ 
+     */
     public function setReservations(array $reservations): void
     {
         $this->reservations = $reservations;
