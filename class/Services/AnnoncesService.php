@@ -202,7 +202,7 @@ class AnnoncesService
                 $reservation->setLieuArrivee($reservationDTO['lieu_arrivee']);
 
                 $dateDepart = new DateTime($reservationDTO['date_depart']);
-                if($dateDepart) {
+                if ($dateDepart) {
                     $reservation->setDateDepart($dateDepart);
                 }
 

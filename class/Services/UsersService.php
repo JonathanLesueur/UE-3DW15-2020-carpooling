@@ -20,7 +20,7 @@ class UsersService
         $dataBaseService = new DataBaseService();
         $birthdayDateTime = new DateTime($birthday);
         if (empty($id)) {
-            $userId = $dataBaseService->createUser($firstname, $lastname, $email, $birthdayDateTime); 
+            $userId = $dataBaseService->createUser($firstname, $lastname, $email, $birthdayDateTime);
         } else {
             $dataBaseService->updateUser($id, $firstname, $lastname, $email, $birthdayDateTime);
             $userId = $id;
@@ -130,8 +130,8 @@ class UsersService
 
         $dataBaseService = new DataBaseService();
         $userAnnoncesDTO = $dataBaseService->getUserAnnonces($userId);
-        if(!empty($userAnnoncesDTO)) {
-            foreach($userAnnoncesDTO as $userAnnonceDTO) {
+        if (!empty($userAnnoncesDTO)) {
+            foreach ($userAnnoncesDTO as $userAnnonceDTO) {
                 $annonce = new Annonce();
                 
                 $annonce->setId($userAnnonceDTO['id']);
@@ -139,12 +139,12 @@ class UsersService
                 $annonce->setLieuArrivee($userAnnonceDTO['lieu_arrivee']);
                 
                 $dateDepart = new DateTime($userAnnonceDTO['date_depart']);
-                if($dateDepart) {
+                if ($dateDepart) {
                     $annonce->setDateDepart($dateDepart);
                 }
                 
                 $dateArrivee = new DateTime($userAnnonceDTO['date_arrivee']);
-                if($dateArrivee) {
+                if ($dateArrivee) {
                     $annonce->setDateArrivee($dateArrivee);
                 }
 
@@ -161,8 +161,8 @@ class UsersService
 
         $dataBaseService = new DataBaseService();
         $userReservationsDTO = $dataBaseService->getUserReservations($userId);
-        if(!empty($userReservationsDTO)) {
-            foreach($userReservationsDTO as $userReservationDTO) {
+        if (!empty($userReservationsDTO)) {
+            foreach ($userReservationsDTO as $userReservationDTO) {
                 $reservation = new Reservation();
 
                 $reservation->setId($userReservationDTO['id']);
@@ -170,7 +170,7 @@ class UsersService
                 $reservation->setLieuArrivee($userReservationDTO['lieu_arrivee']);
 
                 $dateDepart = new DateTime($userReservationDTO['date_depart']);
-                if($dateDepart) {
+                if ($dateDepart) {
                     $reservation->setDateDepart($dateDepart);
                 }
                 

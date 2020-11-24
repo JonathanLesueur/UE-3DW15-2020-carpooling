@@ -17,7 +17,6 @@ class AnnoncesController
             isset($_POST['date_arrivee']) &&
             isset($_POST['utilisateur']) &&
             isset($_POST['car'])) {
-
             $annoncesService = new AnnoncesService();
             $annonceId = $annoncesService->setAnnonce(
                 null,
@@ -28,10 +27,10 @@ class AnnoncesController
             );
 
             $isOk = true;
-            if(!empty($_POST['utilisateur'])) {
+            if (!empty($_POST['utilisateur'])) {
                 $isOk = $annoncesService->setAnnonceUsers($annonceId, $_POST['utilisateur']);
             }
-            if(!empty($_POST['car'])) {
+            if (!empty($_POST['car'])) {
                 $isOk = $annoncesService->setAnnonceCars($annonceId, $_POST['car']);
             }
             if ($isOk) {
@@ -48,17 +47,14 @@ class AnnoncesController
         $_cars = $casrService->getCars();
 
         require('views/annonce/annonce_create.php');
-
     }
 
     public function getAnnonces(): void
     {
-
         $annoncesService = new AnnoncesService();
         $_annonces = $annoncesService->getAnnonces();
 
         require('views/annonce/annonce_read.php');
-
     }
 
     public function updateAnnonce(): void
@@ -71,15 +67,21 @@ class AnnoncesController
             isset($_POST['date_arrivee']) &&
             isset($_POST['utilisateur']) &&
             isset($_POST['car'])) {
-
             $annoncesService = new AnnoncesService();
-            $isOk = $annoncesService->setAnnonce(
+            $annonceId = $annoncesService->setAnnonce(
                 $_POST['id'],
                 $_POST['lieu_depart'],
                 $_POST['lieu_arrivee'],
                 $_POST['date_depart'],
                 $_POST['date_arrivee']
             );
+            $isOk = true;
+            if (!empty($_POST['utilisateur'])) {
+                $isOk = $annoncesService->setAnnonceUsers($annonceId, $_POST['utilisateur']);
+            }
+            if (!empty($_POST['car'])) {
+                $isOk = $annoncesService->setAnnonceCars($annonceId, $_POST['car']);
+            }
             if ($isOk) {
                 $result_update = 'Annonce mise à jour avec succès.';
             } else {
@@ -94,7 +96,6 @@ class AnnoncesController
         $_cars = $casrService->getCars();
 
         require('views/annonce/annonce_update.php');
-
     }
 
     public function deleteAnnonce(): void
@@ -112,6 +113,5 @@ class AnnoncesController
         }
 
         require('views/annonce/annonce_delete.php');
-
     }
 }

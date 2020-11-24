@@ -12,7 +12,6 @@ class Annonce
     private $date_depart;
     private $date_arrivee;
 
-    /* Préparation pour la suite */
     private $utilisateurs;
     private $voiture;
     private $commentaires;

@@ -16,7 +16,7 @@ class ReservationsService
         $dataBaseService = new DataBaseService();
         $departDate = new DateTime($date_depart);
 
-        if(empty($id)) {
+        if (empty($id)) {
             $reservationId = $dataBaseService->createReservation($departDate, $lieu_depart, $lieu_arrivee);
         } else {
             $dataBaseService->updateReservation($id, $departDate, $lieu_depart, $lieu_arrivee);
@@ -31,15 +31,15 @@ class ReservationsService
 
         $dataBaseService = new DataBaseService();
         $reservationsDTO = $dataBaseService->getReservations();
-        if(!empty($reservationsDTO)) {
-            foreach($reservationsDTO as $reservationDTO) {
+        if (!empty($reservationsDTO)) {
+            foreach ($reservationsDTO as $reservationDTO) {
                 $reservation = new Reservation();
                 $reservation->setId($reservationDTO['id']);
                 $reservation->setLieuDepart($reservationDTO['lieu_depart']);
                 $reservation->setLieuArrivee($reservationDTO['lieu_arrivee']);
 
                 $date = new DateTime($reservationDTO['date_depart']);
-                if($date !== false) {
+                if ($date !== false) {
                     $reservation->setDateDepart($date);
                 }
 
@@ -77,8 +77,8 @@ class ReservationsService
 
         $dataBaseService = new DataBaseService();
         $usersDTO = $dataBaseService->getReservationUsers($reservationId);
-        if(!empty($usersDTO)) {
-            foreach($usersDTO as $userDTO) {
+        if (!empty($usersDTO)) {
+            foreach ($usersDTO as $userDTO) {
                 $user = new User();
                 $user->setId($userDTO['id']);
                 $user->setFirstName($userDTO['firstname']);
@@ -86,13 +86,12 @@ class ReservationsService
                 $user->setEmail($userDTO['email']);
 
                 $date = new DateTime($userDTO['birthday']);
-                if($date) {
+                if ($date) {
                     $user->setBirthday($date);
                 }
 
                 $_users[] = $user;
             }
-            
         }
         return $_users;
     }
@@ -113,26 +112,25 @@ class ReservationsService
 
         $dataBaseService = new DataBaseService();
         $annoncesDTO = $dataBaseService->getReservationAnnonces($reservationId);
-        if(!empty($annoncesDTO)) {
-            foreach($annoncesDTO as $annoncesDTO) {
+        if (!empty($annoncesDTO)) {
+            foreach ($annoncesDTO as $annoncesDTO) {
                 $annonce = new Annonce();
                 $annonce->setId($annoncesDTO['id']);
                 $annonce->setLieuDepart($annoncesDTO['lieu_depart']);
                 $annonce->setLieuArrivee($annoncesDTO['lieu_arrivee']);
 
                 $dateDepart = new DateTime($annoncesDTO['date_depart']);
-                if($dateDepart) {
+                if ($dateDepart) {
                     $annonce->setDateDepart($dateDepart);
                 }
 
                 $dateArrivee = new DateTime($annoncesDTO['date_arrivee']);
-                if($dateArrivee) {
+                if ($dateArrivee) {
                     $annonce->setDateDepart($dateArrivee);
                 }
 
                 $_annonces[] = $annonce;
             }
-            
         }
         return $_annonces;
     }

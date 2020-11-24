@@ -14,7 +14,7 @@ class CarsService
         $dataBaseService = new DataBaseService();
         $circulationDate = new DateTime($mise_circulation);
 
-        if(empty($id)) {
+        if (empty($id)) {
             $result = $dataBaseService->createCar($marque, $couleur, $circulationDate, $puissanceMoteur, $modele);
         } else {
             $result = $dataBaseService->updateCar($id, $marque, $couleur, $circulationDate, $puissanceMoteur, $modele);
@@ -29,8 +29,8 @@ class CarsService
 
         $dataBaseService = new DataBaseService();
         $carsDTO = $dataBaseService->getCars();
-        if(!empty($carsDTO)) {
-            foreach($carsDTO as $carDTO) {
+        if (!empty($carsDTO)) {
+            foreach ($carsDTO as $carDTO) {
                 $car = new Car();
                 $car->setId($carDTO['id']);
                 $car->setMarque($carDTO['marque']);
@@ -39,7 +39,7 @@ class CarsService
                 $car->setModele($carDTO['modele']);
 
                 $date = new DateTime($carDTO['mise_circulation']);
-                if($date !== false) {
+                if ($date !== false) {
                     $car->setCirculation($date);
                 }
 

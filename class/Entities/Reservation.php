@@ -97,7 +97,7 @@ class Reservation
 
     /**
      * Get the value of annonces
-     */ 
+     */
     public function getAnnonces(): array
     {
         return $this->annonces;
@@ -107,7 +107,7 @@ class Reservation
      * Set the value of annonces
      *
      * @return  self
-     */ 
+     */
     public function setAnnonces(array $annonces)
     {
         $this->annonces = $annonces;

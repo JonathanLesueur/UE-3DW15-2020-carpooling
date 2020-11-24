@@ -30,18 +30,15 @@ class CarsController
             }
         }
 
-        require('views/car/car_create.php');
-
+        require 'views/car/car_create.php';
     }
 
     public function getCars(): void
     {
-
         $carsService = new CarsService();
         $_cars = $carsService->getCars();
 
-        require('views/car/car_read.php');
-
+        require 'views/car/car_read.php';
     }
 
     public function updateCar(): void
@@ -69,8 +66,7 @@ class CarsController
             }
         }
 
-        require('views/car/car_update.php');
-
+        require 'views/car/car_update.php';
     }
 
     public function deleteCar(): void
@@ -87,7 +83,6 @@ class CarsController
             }
         }
 
-        require('views/car/car_delete.php');
-
+        require 'views/car/car_delete.php';
     }
 }

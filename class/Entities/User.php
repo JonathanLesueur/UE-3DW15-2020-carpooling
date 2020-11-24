@@ -12,7 +12,6 @@ class User
     private $email;
     private $birthday;
 
-    /* Préparation pour la suite */
     private $voitures;
     private $annonces;
     private $reservations;
@@ -69,7 +68,7 @@ class User
 
     /**
      * Get the value of voitures
-     */ 
+     */
     public function getVoitures(): array
     {
         return $this->voitures;
@@ -79,7 +78,7 @@ class User
      * Set the value of voitures
      *
      * @return  self
-     */ 
+     */
     public function setVoitures(array $voitures)
     {
         $this->voitures = $voitures;
@@ -87,7 +86,7 @@ class User
 
     /**
      * Get the value of annonces
-     */ 
+     */
     public function getAnnonces(): array
     {
         return $this->annonces;
@@ -97,7 +96,7 @@ class User
      * Set the value of annonces
      *
      * @return  self
-     */ 
+     */
     public function setAnnonces(array $annonces)
     {
         $this->annonces = $annonces;
@@ -105,7 +104,7 @@ class User
 
     /**
      * Get the value of reservations
-     */ 
+     */
     public function getReservations(): array
     {
         return $this->reservations;
@@ -115,7 +114,7 @@ class User
      * Set the value of reservations
      *
      * @return  self
-     */ 
+     */
     public function setReservations(array $reservations)
     {
         $this->reservations = $reservations;

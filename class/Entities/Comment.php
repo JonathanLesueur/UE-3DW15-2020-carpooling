@@ -106,7 +106,7 @@ class Comment
 
     /**
      * Get the value of annonce
-     */ 
+     */
     public function getAnnonce(): array
     {
         return $this->annonce;
@@ -116,7 +116,7 @@ class Comment
      * Set the value of annonce
      *
      * @return  self
-     */ 
+     */
     public function setAnnonce(array $annonce): void
     {
         $this->annonce = $annonce;

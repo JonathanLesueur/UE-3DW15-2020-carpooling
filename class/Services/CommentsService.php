@@ -21,7 +21,7 @@ class CommentsService
         if (empty($id)) {
             $commentId = $dataBaseService->createComment($titre, $contenu, $ecritureDate);
         } else {
-            $result = $dataBaseService->updateComment($id, $titre, $contenu, $ecritureDate);
+            $dataBaseService->updateComment($id, $titre, $contenu, $ecritureDate);
             $commentId = $id;
         }
 
@@ -86,15 +86,15 @@ class CommentsService
         $dataBaseService = new DataBaseService();
         $commentAnnoncesDTO = $dataBaseService->getCommentAnnonce($commentId);
 
-        if(!empty($commentAnnoncesDTO)) {
-            foreach($commentAnnoncesDTO as $commentAnnonceDTO) {
+        if (!empty($commentAnnoncesDTO)) {
+            foreach ($commentAnnoncesDTO as $commentAnnonceDTO) {
                 $annonce = new Annonce();
                 $annonce->setId($commentAnnonceDTO['id']);
                 $annonce->setLieuDepart($commentAnnonceDTO['lieu_depart']);
                 $annonce->setLieuArrivee($commentAnnonceDTO['lieu_arrivee']);
 
                 $dateDepart = new DateTime($commentAnnonceDTO['date_depart']);
-                if($dateDepart) {
+                if ($dateDepart) {
                     $annonce->setDateDepart($dateDepart);
                 }
                 
@@ -131,8 +131,8 @@ class CommentsService
         $dataBaseService = new DataBaseService();
         $commentUsersDTO = $dataBaseService->getCommentUser($commentId);
 
-        if(!empty($commentUsersDTO)) {
-            foreach($commentUsersDTO as $commentUserDTO) {
+        if (!empty($commentUsersDTO)) {
+            foreach ($commentUsersDTO as $commentUserDTO) {
                 $user = new User();
                 $user->setId($commentUserDTO['id']);
                 $user->setFirstName($commentUserDTO['firstname']);
@@ -140,7 +140,7 @@ class CommentsService
                 $user->setEmail($commentUserDTO['email']);
                 
                 $birthday = new Datetime($commentUserDTO['birthday']);
-                if($birthday) {
+                if ($birthday) {
                     $user->setBirthday($birthday);
                 }
 

@@ -15,7 +15,6 @@ class ReservationsController
            isset($_POST['date_depart']) &&
            isset($_POST['lieu_depart']) &&
            isset($_POST['lieu_arrivee'])) {
-               
             $reservationsService = new ReservationsService();
             $reservationId = $reservationsService->setReservation(
                 null,
@@ -25,13 +24,14 @@ class ReservationsController
             );
 
             $isOk = true;
-            if(!empty($_POST['utilisateur'])) {
+            if (!empty($_POST['utilisateur'])) {
                 $isOk = $reservationsService->setReservationUsers($reservationId, $_POST['utilisateur']);
             }
 
-            if(!empty($_POST['annonce'])) {
+            if (!empty($_POST['annonce'])) {
                 $isOk = $reservationsService->setReservationAnnonces($reservationId, $_POST['annonce']);
             }
+            
             if ($isOk) {
                 $result_create = 'Réservation enregistrée avec succès.';
             } else {
@@ -50,12 +50,10 @@ class ReservationsController
 
     public function getReservations(): void
     {
-
         $reservationsService = new ReservationsService();
         $_reservations = $reservationsService->getReservations();
 
         require 'views/reservation/reservation_read.php';
-
     }
 
     public function updateReservation(): void
@@ -66,7 +64,6 @@ class ReservationsController
             isset($_POST['date_depart']) &&
             isset($_POST['lieu_depart']) &&
             isset($_POST['lieu_arrivee'])) {
-
             $reservationsService = new ReservationsService();
             $reservationId = $reservationsService->setReservation(
                 $_POST['id'],
@@ -76,11 +73,11 @@ class ReservationsController
             );
 
             $isOk = true;
-            if(!empty($_POST['utilisateur'])) {
+            if (!empty($_POST['utilisateur'])) {
                 $isOk = $reservationsService->setReservationUsers($reservationId, $_POST['utilisateur']);
             }
 
-            if(!empty($_POST['annonce'])) {
+            if (!empty($_POST['annonce'])) {
                 $isOk = $reservationsService->setReservationAnnonces($reservationId, $_POST['annonce']);
             }
 

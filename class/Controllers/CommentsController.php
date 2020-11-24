@@ -23,16 +23,14 @@ class CommentsController
                 $_POST['contenu']
             );
 
-
             $isOk = true;
-            if(!empty($_POST['annonce'])) {
+            if (!empty($_POST['annonce'])) {
                 $isOk = $commentsService->setCommentAnnonce($commentId, $_POST['annonce']);
             }
 
-            if(!empty($_POST['utilisateur'])) {
+            if (!empty($_POST['utilisateur'])) {
                 $isOk = $commentsService->setCommentUser($commentId, $_POST['utilisateur']);
             }
-
 
             if ($isOk) {
                 $result_create = 'Commentaire enregistré avec succès.';
@@ -52,7 +50,6 @@ class CommentsController
 
     public function getComments(): void
     {
-        
         $commentsService = new CommentsService();
         $_comments = $commentsService->getComments();
 
@@ -68,11 +65,20 @@ class CommentsController
            isset($_POST['utilisateur']) &&
            isset($_POST['annonce'])) {
             $commentsService = new CommentsService();
-            $isOk = $commentsService->setComment(
+            $commentId = $commentsService->setComment(
                 $_POST['id'],
                 $_POST['titre'],
                 $_POST['contenu']
             );
+
+            $isOk = true;
+            if (!empty($_POST['annonce'])) {
+                $isOk = $commentsService->setCommentAnnonce($commentId, $_POST['annonce']);
+            }
+
+            if (!empty($_POST['utilisateur'])) {
+                $isOk = $commentsService->setCommentUser($commentId, $_POST['utilisateur']);
+            }
             if ($isOk) {
                 $result_update = 'Commentaire mis à jour avec succès.';
             } else {

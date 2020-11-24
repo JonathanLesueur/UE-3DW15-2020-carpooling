@@ -78,13 +78,21 @@ class UsersController
             isset($_POST['cars'])) {
             // Update the user :
             $usersService = new UsersService();
-            $isOk = $usersService->setUser(
+            $userId = $usersService->setUser(
                 $_POST['id'],
                 $_POST['firstname'],
                 $_POST['lastname'],
                 $_POST['email'],
                 $_POST['birthday']
             );
+            
+            $isOk = true;
+            if (!empty($_POST['cars'])) {
+                foreach ($_POST['cars'] as $carId) {
+                    $isOk = $usersService->setUserCar($userId, $carId);
+                }
+            }
+
             if ($isOk) {
                 $update_result = 'Utilisateur mis à jour avec succès.';
             } else {
