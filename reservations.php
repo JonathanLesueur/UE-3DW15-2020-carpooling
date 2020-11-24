@@ -1,8 +1,8 @@
 <?php
+require __DIR__ . '/vendor/autoload.php';
 
 use App\Controllers\ReservationsController;
 
-require __DIR__ . '/vendor/autoload.php';
 $controller = new ReservationsController();
 
 

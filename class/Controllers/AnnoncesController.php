@@ -46,7 +46,7 @@ class AnnoncesController
         $casrService = new CarsService();
         $_cars = $casrService->getCars();
 
-        require('views/annonce/annonce_create.php');
+        require 'views/annonce/annonce_create.php';
     }
 
     public function getAnnonces(): void
@@ -54,7 +54,7 @@ class AnnoncesController
         $annoncesService = new AnnoncesService();
         $_annonces = $annoncesService->getAnnonces();
 
-        require('views/annonce/annonce_read.php');
+        require 'views/annonce/annonce_read.php';
     }
 
     public function updateAnnonce(): void
@@ -95,7 +95,7 @@ class AnnoncesController
         $casrService = new CarsService();
         $_cars = $casrService->getCars();
 
-        require('views/annonce/annonce_update.php');
+        require 'views/annonce/annonce_update.php';
     }
 
     public function deleteAnnonce(): void
@@ -112,6 +112,6 @@ class AnnoncesController
             }
         }
 
-        require('views/annonce/annonce_delete.php');
+        require 'views/annonce/annonce_delete.php';
     }
 }
